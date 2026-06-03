@@ -1,0 +1,17 @@
+# secrets — never commit these
+.env
+.env.*
+*.local
+secrets.json
+
+# os / editor noise
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# node (in case you add tooling later)
+node_modules/
+
+# local screenshot / verification artifacts
+.shots/

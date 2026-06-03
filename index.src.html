@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Dang Thai Khang — Computer Engineering student at HCMUT. Embedded systems, FPGA / RTL and backend, mostly learned by rebuilding things from scratch.">
+  <meta name="author" content="Dang Thai Khang">
+  <meta name="theme-color" content="#0a0e14">
+  <meta name="color-scheme" content="dark">
+  <title>Dang Thai Khang — Computer Engineering @ HCMUT</title>
+
+  <!-- social cards -->
+  <meta property="og:title" content="Dang Thai Khang — Computer Engineering @ HCMUT">
+  <meta property="og:description" content="Embedded · FPGA / RTL · backend. Built from scratch, no frameworks.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://xeminol.github.io/MyPortfolio/">
+  <meta property="og:image" content="https://xeminol.github.io/MyPortfolio/og.svg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Dang Thai Khang — Computer Engineering @ HCMUT">
+  <meta name="twitter:description" content="Embedded · FPGA / RTL · backend. Built from scratch, no frameworks.">
+  <meta name="twitter:image" content="https://xeminol.github.io/MyPortfolio/og.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <!-- self-drawn monogram favicon (no emoji) -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a0e14'/%3E%3Crect x='4' y='4' width='56' height='56' rx='11' fill='none' stroke='%237ee787' stroke-width='2'/%3E%3Ctext x='32' y='43' font-family='monospace' font-size='28' font-weight='700' text-anchor='middle' fill='%237ee787'%3EDK%3C/text%3E%3C/svg%3E">
+</head>
+<body class="intro-lock">
+  <!-- system boot intro: HUD on canvas (runs every visit; Skip available) -->
+  <div class="intro" id="intro">
+    <canvas id="hud" class="hud-cv" aria-hidden="true"></canvas>
+    <button class="intro-skip" id="introSkip" aria-label="Skip intro">SKIP ▸</button>
+    <div class="intro-log" id="introLog"></div>
+  </div>
+
+  <div class="bg-grid"></div>
+  <div class="bg-glow"></div>
+  <div class="spotlight" id="spotlight" aria-hidden="true"></div>
+  <canvas id="rain"></canvas>
+
+  <div class="progress-bar" id="progress"></div>
+
+  <!-- NAVBAR (no brand / logo) -->
+  <nav class="nav" id="nav">
+    <ul class="nav-links" id="navLinks"></ul>
+    <div class="nav-tools">
+      <span class="lang-pill" title="Language / Ngôn ngữ">
+        <button id="langEN" class="on" onclick="setLang('en')">EN</button>
+        <button id="langVI" onclick="setLang('vi')">VI</button>
+      </span>
+      <button class="icon-btn" id="spotifyBtn" title="Now playing" aria-label="Now playing">
+        <span class="np-logo"></span>
+      </button>
+      <button class="icon-btn" id="paletteBtn" title="Quick nav (Ctrl+K)" aria-label="Command palette">⌘K</button>
+      <button class="icon-btn nav-burger" id="navBurger" aria-label="Menu">☰</button>
+    </div>
+  </nav>
+
+  <!-- SECTIONS (filled by app.js) -->
+  <header class="hero" id="home"></header>
+  <section id="about"></section>
+  <section id="stack"></section>
+  <section id="timeline"></section>
+  <section id="projects"></section>
+  <section id="contact"></section>
+  <footer>
+    <div class="status-bar" id="statusBar"></div>
+    <span id="footerText"></span>
+    <span class="mx-glyph" id="mxGlyph" title="?" aria-hidden="true">01</span>
+  </footer>
+
+  <!-- PROJECT DETAIL PAGE (hash route #/p/<id>) -->
+  <div class="project-page" id="projectPage"></div>
+
+  <!-- SPOTIFY popup -->
+  <div class="sp-popup" id="spotifyPopup" role="dialog" aria-modal="true">
+    <div class="sp-card" id="spotifyCard">
+      <div class="sp-top">
+        <span class="np-logo"></span>
+        <span class="sp-status" id="spotifyStatus">—</span>
+        <button class="sp-close" id="spotifyClose" aria-label="Close">✕</button>
+      </div>
+      <div id="spotifyBody"><div class="sp-idle">—</div></div>
+    </div>
+  </div>
+
+  <!-- GLOBE overlay (easter-egg-feel 3D earth) -->
+  <div class="globe-overlay" id="globeOverlay" role="dialog" aria-modal="true">
+    <button class="globe-close" id="globeClose" aria-label="Close">✕</button>
+    <canvas id="globe" aria-hidden="true"></canvas>
+    <div class="globe-hint" id="globeHint"></div>
+  </div>
+
+  <!-- COMMAND PALETTE (Ctrl/⌘ + K) -->
+  <div class="palette" id="palette" role="dialog" aria-modal="true">
+    <div class="palette-box">
+      <input id="paletteInput" class="palette-input" type="text" autocomplete="off"
+             autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="Command palette">
+      <ul class="palette-list" id="paletteList"></ul>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
