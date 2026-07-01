@@ -345,8 +345,8 @@ export const PROJECTS = [
     meta: { en: 'R · logistic regression', vi: 'R · hồi quy logistic' },
     role: { en: 'Solo · statistics course', vi: 'Cá nhân · môn Xác suất thống kê' },
     blurb: {
-      en: 'Classifying ad images from layout features — with the statistics to back each one.',
-      vi: 'Phân loại ảnh quảng cáo từ đặc trưng layout — kèm thống kê cho từng đặc trưng.',
+      en: 'Classifying ad images from layout features, using logistic regression in R.',
+      vi: 'Phân loại ảnh quảng cáo từ đặc trưng layout, dùng logistic regression trong R.',
     },
     tags: ['R', 'Logistic Reg.', 'Hypothesis testing'],
     flow: ['UCI dataset', 'Clean + impute', 'Feature tests', 'Logistic reg', 'Odds ratios + ROC'],
