@@ -44,8 +44,8 @@
   <!-- left-side text -->
   <text x="90" y="150" font-size="22" letter-spacing="3" fill="#7d8aa0">// COMPUTER ENGINEERING @ HCMUT</text>
   <text x="86" y="268" font-size="94" font-weight="800" fill="url(#name)">Dang Thai Khang</text>
-  <text x="90" y="350" font-size="34" fill="#aeb9c7">Embedded systems · FPGA / RTL · backend</text>
-  <text x="90" y="408" font-size="26" fill="#7d8aa0">I learn a thing by building it once, by hand.</text>
+  <text x="90" y="350" font-size="34" fill="#aeb9c7">Computer Engineering student · HCMUT</text>
+  <text x="90" y="408" font-size="26" fill="#7d8aa0">I build things and take them apart to understand them.</text>
 
   <!-- tags -->
   <g font-size="22" fill="#aeb9c7">
