@@ -70,17 +70,6 @@ body.amber::after {
   100% { opacity: 0; transform: translate(0,0); clip-path: none; }
 }
 @media (prefers-reduced-motion: reduce) { .glitch-overlay.fire { animation: none; opacity: 0; } }
-.glitch-sigil {
-  position: fixed; z-index: 9996; right: 22px; bottom: 74px;
-  width: 30px; height: 30px; padding: 0; border: none; border-radius: 8px;
-  background: transparent; color: var(--green); font-size: 18px; line-height: 30px;
-  cursor: pointer; opacity: 0; pointer-events: none; transition: opacity 0.4s;
-  text-shadow: 0 0 8px var(--glow); font-family: 'JetBrains Mono', monospace;
-}
-.glitch-sigil.show { opacity: 0.22; pointer-events: auto; animation: sigilflick 2.4s steps(1) infinite; }
-.glitch-sigil.show:hover { opacity: 1; }
-@keyframes sigilflick { 0%,90%,100% { opacity: 0.22; } 92% { opacity: 0.5; transform: translateX(-2px); } 95% { opacity: 0.15; transform: translateX(2px); } }
-body.amber .glitch-sigil { color: #ff6a3d; }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -322,8 +311,13 @@ section { padding: clamp(60px, 9vh, 110px) 0; }
 .globe-hint { position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%); color: var(--text-faint); font-size: 12px; letter-spacing: 1px; z-index: 2; pointer-events: none; }
 
 /* ===== hidden matrix glyph in footer ===== */
-.mx-glyph { display: inline-block; margin-left: 10px; color: var(--text-faint); opacity: 0.3; cursor: pointer; user-select: none; font-size: 12px; letter-spacing: 1px; transition: opacity 0.3s; animation: glitch 4s steps(1) infinite; }
-.mx-glyph:hover { opacity: 1; color: var(--green); text-shadow: 0 0 8px var(--glow); }
+/* Egg dock — three fixed, static dots at bottom-right. Quiet but not moving. */
+.egg-dock { position: fixed; right: 16px; bottom: 14px; z-index: 60; display: flex; gap: 9px; }
+.egg { width: 9px; height: 9px; padding: 0; border-radius: 50%; border: 1px solid var(--border-hi); background: var(--surface); cursor: pointer; position: relative; transition: background 0.25s, box-shadow 0.25s, transform 0.15s; }
+.egg:hover { background: var(--green); box-shadow: 0 0 10px var(--glow); transform: scale(1.25); }
+.egg::after { content: attr(data-tip); position: absolute; bottom: 150%; left: 50%; transform: translateX(-50%); font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 1px; color: var(--green); background: var(--surface); border: 1px solid var(--border); border-radius: 5px; padding: 2px 7px; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
+.egg:hover::after { opacity: 1; }
+.egg:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; }
 @keyframes glitch { 0%,92%{transform:translate(0,0);} 93%{transform:translate(-1px,1px); opacity:0.6;} 94%{transform:translate(1px,-1px);} 95%{transform:translate(0,0); opacity:0.3;} }
 
 /* ===== footer + status ===== */

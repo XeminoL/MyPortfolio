@@ -295,8 +295,6 @@ const particles = (() => {
   let raf = null; let bound = false; let running = false; let visible = true;
   let pts = []; let cv = null; let ctx = null;
   const mouse = { x: -999, y: -999 };
-  const beaconIdx = 3;                 // which particle is the hidden beacon
-  const beaconPos = { x: -999, y: -999 };
   const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
   const accent = () => getComputedStyle(document.body).getPropertyValue('--green').trim() || '#7ee787';
 
@@ -325,17 +323,6 @@ const particles = (() => {
       ctx.fillStyle = color; ctx.globalAlpha = 0.7;
       ctx.beginPath(); ctx.arc(p.x, p.y, 1.7, 0, 7); ctx.fill();
     });
-    // BEACON — one particle quietly pulses brighter/larger than the rest.
-    // Look closely and you'll notice it; hover changes the cursor; click opens the globe.
-    const b = pts[beaconIdx];
-    if (b) {
-      const t = (typeof performance !== 'undefined' ? performance.now() : 0) / 1000;
-      const pulse = 0.55 + 0.45 * Math.sin(t * 1.8);
-      beaconPos.x = b.x; beaconPos.y = b.y;
-      ctx.globalAlpha = 0.25 * pulse; ctx.fillStyle = color;
-      ctx.beginPath(); ctx.arc(b.x, b.y, 9 * pulse, 0, 7); ctx.fill();   // soft halo
-      ctx.globalAlpha = 0.9; ctx.beginPath(); ctx.arc(b.x, b.y, 2.6, 0, 7); ctx.fill();  // bright core
-    }
     for (let i = 0; i < pts.length; i += 1) {
       for (let j = i + 1; j < pts.length; j += 1) {
         const d = Math.hypot(pts[i].x - pts[j].x, pts[i].y - pts[j].y);
@@ -365,17 +352,8 @@ const particles = (() => {
       home.addEventListener('pointermove', (e) => {
         if (!cv) return;
         const r = cv.getBoundingClientRect(); mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top;
-        // near the beacon? hint with the cursor (set on #home since it's the top layer)
-        const near = Math.hypot(mouse.x - beaconPos.x, mouse.y - beaconPos.y) < 16;
-        home.style.cursor = near ? 'pointer' : '';
       });
       home.addEventListener('pointerleave', () => { mouse.x = -999; mouse.y = -999; });
-      // click the beacon → open the globe (listen on #home so hero content doesn't block it)
-      home.addEventListener('click', (e) => {
-        if (!cv) return;
-        const r = cv.getBoundingClientRect();
-        if (Math.hypot((e.clientX - r.left) - beaconPos.x, (e.clientY - r.top) - beaconPos.y) < 16) globe.open();
-      });
       if ('IntersectionObserver' in window) {
         new IntersectionObserver((es) => {
           visible = es[0].isIntersecting;
@@ -558,59 +536,31 @@ function initKonami() {
   });
 }
 
-/* Hidden matrix egg: a glyph in the footer that quietly glitches through random
-   characters. Faint enough to miss at a glance, obvious once you look. Click → matrix. */
-function initMatrixGlyph() {
-  const g = $('#mxGlyph');
-  if (!g) return;
-  g.addEventListener('click', () => matrixRain.toggle());
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const glyphs = '01アイウ日月ﾊﾐﾋ#%&';
-  let tick = 0;
-  setInterval(() => {
-    tick += 1;
-    // most of the time show "01"; occasionally flicker through random glyphs
-    if (tick % 7 === 0) {
-      const a = glyphs[Math.floor(Math.random() * glyphs.length)];
-      const b = glyphs[Math.floor(Math.random() * glyphs.length)];
-      g.textContent = a + b;
-      setTimeout(() => { g.textContent = '01'; }, 140);
-    }
-  }, 500);
-}
-
-/* GLITCH EGG — every so often the screen glitches for a beat (horror-.exe style)
-   and a faint radioactive sigil blinks into the corner. It's clickable: whether you
-   catch the glitch or just notice the sigil later, clicking it flips the amber CRT theme. */
-function initGlitchEgg() {
-  const overlay = $('#glitchOverlay');
-  const sigil = $('#glitchSigil');
-  if (!overlay || !sigil) return;
-  sigil.addEventListener('click', () => crt.toggle());
-  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  // the sigil stays faintly visible so a careful viewer always has something to find
-  setTimeout(() => sigil.classList.add('show'), 4000);
-  if (reduced) return;
-  function fire() {
-    if (!document.hidden) {
-      overlay.classList.remove('fire'); void overlay.offsetWidth; overlay.classList.add('fire');
-      sigil.classList.add('show');
-    }
-    // next glitch in 25–55s — rare enough to feel like an accident
-    setTimeout(fire, 25000 + Math.random() * 30000);
-  }
-  setTimeout(fire, 12000 + Math.random() * 10000);
-}
-
-/* Hidden egg: "amber" → swap the green phosphor palette for an amber-CRT one,
-   the way old monochrome monitors looked. Toggles a body class; CSS does the rest. */
+/* Amber CRT: swap the green phosphor palette for an amber-CRT one, with a quick
+   horror-.exe glitch flash on the way in. Toggles a body class; CSS does the rest. */
 const crt = (() => ({
   toggle() {
     const on = document.body.classList.toggle('amber');
+    if (on && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const o = $('#glitchOverlay');
+      if (o) { o.classList.remove('fire'); void o.offsetWidth; o.classList.add('fire'); }
+    }
     toast(on ? (state.lang === 'en' ? 'amber CRT' : 'chế độ hổ phách')
              : (state.lang === 'en' ? 'green phosphor' : 'lân quang xanh'));
   },
 }))();
+
+/* EGG DOCK — three small, fixed, STATIC dots (bottom-right). They don't move or
+   blink, so they're easy to click; quiet enough to miss on a quick pass, but a
+   careful visitor will spot them and hover reveals what each does. */
+function initEggDock() {
+  const dock = $('#eggDock');
+  if (!dock) return;
+  const run = { globe: () => globe.open(), matrix: () => matrixRain.toggle(), amber: () => crt.toggle() };
+  dock.addEventListener('click', (e) => {
+    const b = e.target.closest('.egg'); if (b && run[b.dataset.egg]) run[b.dataset.egg]();
+  });
+}
 
 /* =====================================================================
    GLOBE — a real rotating 3D wireframe Earth (dotted landmasses),
@@ -1013,7 +963,6 @@ addEventListener('scroll', () => {
 addEventListener('hashchange', handleRoute);
 initMobileNav();
 initKonami();
-initMatrixGlyph();
-initGlitchEgg();
+initEggDock();
 initSpotlight();
 intro.run();

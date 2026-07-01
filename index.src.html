@@ -41,7 +41,6 @@
   <div class="bg-glow"></div>
   <div class="spotlight" id="spotlight" aria-hidden="true"></div>
   <div class="glitch-overlay" id="glitchOverlay" aria-hidden="true"></div>
-  <button class="glitch-sigil" id="glitchSigil" aria-label="?" title="?">&#x2622;</button>
   <canvas id="rain"></canvas>
 
   <div class="progress-bar" id="progress"></div>
@@ -72,8 +71,15 @@
   <footer>
     <div class="status-bar" id="statusBar"></div>
     <span id="footerText"></span>
-    <span class="mx-glyph" id="mxGlyph" title="?" aria-hidden="true">01</span>
   </footer>
+
+  <!-- Hidden feature triggers: three small, fixed, static dots. Quiet but clickable —
+       not floating, not blinking. Hover reveals a label; click runs the feature. -->
+  <div class="egg-dock" id="eggDock" aria-hidden="true">
+    <button class="egg" data-egg="globe"  data-tip="globe"  aria-label="globe"></button>
+    <button class="egg" data-egg="matrix" data-tip="matrix" aria-label="matrix"></button>
+    <button class="egg" data-egg="amber"  data-tip="amber"  aria-label="amber"></button>
+  </div>
 
   <!-- PROJECT DETAIL PAGE (hash route #/p/<id>) -->
   <div class="project-page" id="projectPage"></div>
