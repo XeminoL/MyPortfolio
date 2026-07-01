@@ -20,12 +20,12 @@ export const PROFILE = {
   role: { en: 'Computer Engineering @ HCMUT', vi: 'Kỹ thuật Máy tính @ Bách Khoa' },
   // titles cycled by the hero typing effect
   roles: {
-    en: ['embedded systems', 'FPGA & RTL', 'backend services', 'a bit of everything'],
-    vi: ['hệ thống nhúng', 'FPGA & RTL', 'backend', 'một chút mọi thứ'],
+    en: ['embedded systems', 'FPGA & RTL', 'backend services'],
+    vi: ['hệ thống nhúng', 'FPGA & RTL', 'backend'],
   },
   tagline: {
-    en: 'I work close to the metal — Verilog, microcontrollers, raw sockets — and back up to the services that sit on top. I learn a thing by building it once, by hand.',
-    vi: 'Mình làm sát phần cứng — Verilog, vi điều khiển, socket thô — rồi đi ngược lên các service phía trên. Cách mình học một thứ là tự tay dựng lại nó một lần.',
+    en: 'Computer Engineering student working across embedded systems (ESP32, STM32), FPGA / Verilog, and Python / C# backends. I enjoy building projects end to end to understand how they work.',
+    vi: 'Sinh viên Kỹ thuật Máy tính, làm việc với hệ thống nhúng (ESP32, STM32), FPGA / Verilog, và backend Python / C#. Mình thích xây dự án từ đầu đến cuối để hiểu cách chúng hoạt động.',
   },
   // one honest line for the contact section
   availability: {
@@ -61,60 +61,60 @@ export const FACTS = [
     value: { en: 'Embedded · FPGA / RTL · backend', vi: 'Nhúng · FPGA / RTL · backend' } },
 ];
 
-/* About — three short paragraphs. No selling. */
+/* About — three short paragraphs. Plain and factual. */
 export const ABOUT = {
   en: [
-    'I am a Computer Engineering student at HCMUT, drawn to the lower half of the stack: register-transfer logic, microcontrollers, and how a request actually travels through a socket.',
-    'The way I learn is by rebuilding things from scratch — a CPU, a web server, a watering system — because I only really trust the parts I have taken apart myself. Most of what is below started as a course project I then pushed further than it had to go.',
-    'I like work where the constraints are real: a timing budget, a single register, one wrong query that leaks data. Those edges are where you learn how a thing actually behaves, not how the slides say it does.',
+    'I am a Computer Engineering student at HCMUT, focused on embedded systems, FPGA / RTL design, and backend development.',
+    'Most of my work started as coursework that I extended into more complete projects — a CPU and an image accelerator in Verilog, an IoT system with firmware and a backend, and a multi-tenant web application.',
+    'I like building projects from the ground up, since it helps me understand how each layer works and how the pieces fit together.',
   ],
   vi: [
-    'Mình là sinh viên Kỹ thuật Máy tính tại ĐH Bách Khoa, nghiêng về nửa dưới của stack: logic mức thanh ghi, vi điều khiển, và việc một request thật sự đi qua socket như thế nào.',
-    'Cách mình học là dựng lại mọi thứ từ đầu — một con CPU, một web server, một hệ thống tưới — vì mình chỉ thật sự tin những phần đã tự tay tháo ra. Phần lớn dự án bên dưới khởi đầu là bài tập môn học, rồi mình đẩy nó đi xa hơn mức cần thiết.',
-    'Mình thích những bài toán có ràng buộc thật: một giới hạn timing, đúng một thanh ghi, một query sai là rò dữ liệu. Chính mấy chỗ gờ đó mới dạy được cách một hệ thống hành xử thật sự, chứ không phải như trên slide.',
+    'Mình là sinh viên Kỹ thuật Máy tính tại ĐH Bách Khoa, tập trung vào hệ thống nhúng, thiết kế FPGA / RTL, và phát triển backend.',
+    'Phần lớn dự án của mình bắt đầu từ bài tập môn học rồi mình phát triển thành các dự án hoàn chỉnh hơn — một CPU và một bộ tăng tốc ảnh bằng Verilog, một hệ thống IoT gồm firmware và backend, và một ứng dụng web multi-tenant.',
+    'Mình thích xây dự án từ đầu, vì điều đó giúp mình hiểu cách từng tầng hoạt động và cách các phần khớp với nhau.',
   ],
 };
 
-/* How I work — concrete habits, each tied to a real project. Not slogans. */
+/* How I work — concrete habits, each tied to a real project. */
 export const APPROACH = {
   en: [
-    { title: 'Build it once by hand',
-      body: 'Before reaching for a framework I write the plain version first — raw sockets before a web framework, a hand-driven FSM before any soft core. The throwaway version is where the understanding lives.' },
-    { title: 'Push the rule down to one place',
-      body: 'In the multi-tenant tracker, isolation lives in one base query, not in every route — so it cannot be forgotten. I look for the single spot that makes a whole class of mistakes impossible.' },
+    { title: 'Understand it end to end',
+      body: 'I build the core parts myself before reaching for a framework — for example, writing to raw sockets and a hand-driven FSM — so I understand what a library would otherwise hide.' },
+    { title: 'Design for correctness',
+      body: 'In the multi-tenant tracker, tenant isolation is enforced in a single base query rather than in every route, so it cannot be missed. I look for the one place that prevents a whole class of mistakes.' },
     { title: 'Measure before optimizing',
-      body: 'On the FPGA image pipeline the maths was effectively free; UART was the real bottleneck. I try to find where the time actually goes before touching anything.' },
+      body: 'On the FPGA image pipeline, the computation was cheap and UART was the real bottleneck. I try to find where the time actually goes before making changes.' },
   ],
   vi: [
-    { title: 'Tự tay dựng một lần',
-      body: 'Trước khi với tới framework, mình viết bản trần trước — socket thô trước web framework, FSM tự kéo tay trước khi nghĩ tới soft core. Bản vứt-đi đó mới là chỗ chứa sự hiểu.' },
-    { title: 'Đẩy luật xuống một chỗ duy nhất',
-      body: 'Trong issue tracker multi-tenant, việc cô lập nằm ở một query gốc, không nằm rải ở từng route — nên không thể quên. Mình hay tìm đúng một điểm khiến cả một lớp lỗi trở nên bất khả thi.' },
+    { title: 'Hiểu từ đầu đến cuối',
+      body: 'Mình tự viết phần lõi trước khi dùng framework — ví dụ viết trực tiếp trên socket và một FSM tự điều khiển — để hiểu những gì một thư viện sẽ che đi.' },
+    { title: 'Thiết kế hướng tới tính đúng đắn',
+      body: 'Trong issue tracker multi-tenant, việc cô lập tenant được ép ở một query gốc thay vì ở từng route, nên không thể bỏ sót. Mình tìm đúng một điểm ngăn được cả một lớp lỗi.' },
     { title: 'Đo trước khi tối ưu',
-      body: 'Ở pipeline xử lý ảnh trên FPGA, phần tính gần như miễn phí; UART mới là nút cổ chai thật. Mình cố tìm xem thời gian thật sự đi đâu trước khi đụng vào bất cứ thứ gì.' },
+      body: 'Ở pipeline xử lý ảnh trên FPGA, phần tính toán rẻ còn UART mới là nút cổ chai. Mình cố tìm xem thời gian thật sự đi đâu trước khi thay đổi.' },
   ],
 };
 
-/* Now — neutral, present tense, no career talk. */
+/* Now — neutral, present tense. */
 export const NOW = {
-  en: 'Rebuilding small systems end to end to understand them, reading more than I write, and preparing for two summer internships.',
-  vi: 'Dựng lại vài hệ thống nhỏ từ đầu tới cuối để hiểu, đọc nhiều hơn viết, và chuẩn bị cho hai kỳ thực tập hè.',
+  en: 'Building small systems end to end, studying more than I write, and preparing for two summer internships.',
+  vi: 'Xây các hệ thống nhỏ từ đầu đến cuối, học nhiều hơn viết, và chuẩn bị cho hai kỳ thực tập hè.',
 };
 
 /* Timeline — real milestones. Years are approximate by design.
    To name the 2026 employers, just add them into the 2026 text. */
 export const TIMELINE = {
   en: [
-    { year: '2023', text: 'Started Computer Engineering at HCMUT (Bach Khoa). First time treating a computer as something to take apart, not just use.' },
-    { year: '2024', text: 'Logic-design year: an 8-bit RISC CPU and an FPGA image accelerator, both in Verilog, both from the datapath up.' },
-    { year: '2025', text: 'Went wider: an IoT farm, a from-scratch async HTTP server, a multi-tenant SaaS, a Petri-net analyzer, and data analysis in R.' },
-    { year: '2026', text: 'Incoming summer internships — one embedded / hardware-leaning, one in cloud — built around a single project I can carry across both.' },
+    { year: '2023', text: 'Started Computer Engineering at HCMUT (Bach Khoa).' },
+    { year: '2024', text: 'Logic-design coursework: an 8-bit RISC CPU and an FPGA image accelerator, both in Verilog, built from the datapath up.' },
+    { year: '2025', text: 'Broadened into an IoT farm, a from-scratch async HTTP server, a multi-tenant web app, a Petri-net analyzer, and data analysis in R.' },
+    { year: '2026', text: 'Two summer internships — one embedded / hardware-leaning, one in cloud.' },
   ],
   vi: [
-    { year: '2023', text: 'Bắt đầu Kỹ thuật Máy tính tại ĐH Bách Khoa. Lần đầu xem máy tính là thứ để tháo ra mổ xẻ, không chỉ để dùng.' },
-    { year: '2024', text: 'Năm thiết kế luận lý: một CPU RISC 8-bit và một bộ tăng tốc ảnh FPGA, đều bằng Verilog, đều dựng từ datapath lên.' },
-    { year: '2025', text: 'Đi rộng hơn: một nông trại IoT, một async HTTP server tự viết, một SaaS multi-tenant, một bộ phân tích mạng Petri, và phân tích dữ liệu bằng R.' },
-    { year: '2026', text: 'Hai kỳ thực tập hè sắp tới — một thiên về nhúng / phần cứng, một về cloud — xoay quanh một dự án chung mình mang qua được cả hai.' },
+    { year: '2023', text: 'Bắt đầu Kỹ thuật Máy tính tại ĐH Bách Khoa.' },
+    { year: '2024', text: 'Bài tập thiết kế luận lý: một CPU RISC 8-bit và một bộ tăng tốc ảnh FPGA, đều bằng Verilog, dựng từ datapath lên.' },
+    { year: '2025', text: 'Mở rộng sang một hệ thống IoT nông nghiệp, một async HTTP server tự viết, một ứng dụng web multi-tenant, một bộ phân tích mạng Petri, và phân tích dữ liệu bằng R.' },
+    { year: '2026', text: 'Hai kỳ thực tập hè — một thiên về nhúng / phần cứng, một về cloud.' },
   ],
 };
 
@@ -166,13 +166,13 @@ export const PROJECTS = [
       en: [
         { h: 'What it is', p: 'An 8-bit, accumulator-based processor. Every instruction is a single byte — a 3-bit opcode and a 5-bit address — which gives 8 operations over a 32-byte address space.' },
         { h: 'How it works', p: 'The datapath is a program counter, instruction register, accumulator, a 32-byte RAM and an ALU doing ADD / SUB / AND / OR / XOR / NOT / shift. A controller FSM walks fetch → decode → execute and drives every load and enable line by hand.' },
-        { h: 'The tradeoff that taught me most', p: 'A single accumulator keeps the decode logic tiny, but everything routes through one register, so even trivial programs need a lot of loads and stores. That is the moment you feel, concretely, why real ISAs have register files.' },
+        { h: 'A key tradeoff', p: 'A single accumulator keeps the decode logic tiny, but everything routes through one register, so even trivial programs need a lot of loads and stores. That is the moment you feel, concretely, why real ISAs have register files.' },
         { h: 'Result', p: 'Validated by loading a small program into memory in simulation and watching the accumulator and PC step correctly, cycle by cycle, against what I had worked out on paper.' },
       ],
       vi: [
         { h: 'Là gì', p: 'Một vi xử lý 8-bit kiểu accumulator. Mỗi lệnh đúng một byte — 3-bit opcode và 5-bit địa chỉ — cho ra 8 phép toán trên không gian địa chỉ 32 byte.' },
         { h: 'Cách hoạt động', p: 'Datapath gồm program counter, thanh ghi lệnh, accumulator, RAM 32 byte và một ALU làm ADD / SUB / AND / OR / XOR / NOT / dịch. Một FSM điều khiển đi qua fetch → decode → execute và tự tay kéo từng đường load/enable.' },
-        { h: 'Cái đánh đổi dạy mình nhiều nhất', p: 'Một accumulator duy nhất giữ logic decode rất nhỏ, nhưng mọi thứ phải đi qua một thanh ghi, nên chương trình tầm thường cũng cần rất nhiều load/store. Đó là lúc cảm nhận cụ thể vì sao ISA thật có register file.' },
+        { h: 'Một đánh đổi chính', p: 'Một accumulator duy nhất giữ logic decode rất nhỏ, nhưng mọi thứ phải đi qua một thanh ghi, nên chương trình tầm thường cũng cần rất nhiều load/store. Đó là lúc cảm nhận cụ thể vì sao ISA thật có register file.' },
         { h: 'Kết quả', p: 'Kiểm chứng bằng cách nạp một chương trình nhỏ vào bộ nhớ khi mô phỏng và xem accumulator với PC chạy đúng từng chu kỳ, đối chiếu với những gì mình đã tính trên giấy.' },
       ],
     },
@@ -197,14 +197,14 @@ export const PROJECTS = [
     detail: {
       en: [
         { h: 'What it is', p: 'A 256×256 grayscale image is loaded into block RAM, transformed in hardware, and read back to a Python host over UART.' },
-        { h: 'The trick', p: 'The transform is pure address arithmetic: a rotation is (x, y) → (y, 255 − x); a mirror flips one axis. No pixel actually moves — you just rewrite the read address into the output buffer. That is the whole reason to do it on an FPGA instead of in software.' },
-        { h: 'Where the time goes', p: 'Two BRAM ports let read and write happen without fighting over one memory. The slow part is UART, not the maths: at this image size the serial link dominates, so the compute being effectively free only matters because the FPGA can keep the pipeline full.' },
+        { h: 'Approach', p: 'The transform is pure address arithmetic: a rotation is (x, y) → (y, 255 − x); a mirror flips one axis. No pixel actually moves — you just rewrite the read address into the output buffer. That is the whole reason to do it on an FPGA instead of in software.' },
+        { h: 'Performance', p: 'Two BRAM ports let read and write happen without fighting over one memory. The slow part is UART, not the maths: at this image size the serial link dominates, so the compute being effectively free only matters because the FPGA can keep the pipeline full.' },
         { h: 'Result', p: 'Synthesis completed with 0 errors on the Arty Z7-20, and the design was verified with testbenches. The Python side handles JPEG → .coe conversion and reassembles the bytes that come back.' },
       ],
       vi: [
         { h: 'Là gì', p: 'Một ảnh xám 256×256 được nạp vào block RAM, biến đổi bằng phần cứng, rồi đọc ngược về host Python qua UART.' },
-        { h: 'Mẹo chính', p: 'Phép biến đổi thuần là số học địa chỉ: xoay là (x, y) → (y, 255 − x); lật thì đổi một trục. Không pixel nào thật sự di chuyển — chỉ viết lại địa chỉ đọc vào buffer ra. Đó chính là lý do làm trên FPGA thay vì phần mềm.' },
-        { h: 'Thời gian đi đâu', p: 'Hai cổng BRAM cho phép đọc và ghi không tranh nhau một bộ nhớ. Chỗ chậm là UART chứ không phải phần tính: ở kích thước ảnh này, đường serial mới là nút cổ chai, nên việc tính "miễn phí" chỉ có nghĩa vì FPGA giữ pipeline luôn đầy.' },
+        { h: 'Cách tiếp cận', p: 'Phép biến đổi thuần là số học địa chỉ: xoay là (x, y) → (y, 255 − x); lật thì đổi một trục. Không pixel nào thật sự di chuyển — chỉ viết lại địa chỉ đọc vào buffer ra. Đó chính là lý do làm trên FPGA thay vì phần mềm.' },
+        { h: 'Hiệu năng', p: 'Hai cổng BRAM cho phép đọc và ghi không tranh nhau một bộ nhớ. Chỗ chậm là UART chứ không phải phần tính: ở kích thước ảnh này, đường serial mới là nút cổ chai, nên việc tính "miễn phí" chỉ có nghĩa vì FPGA giữ pipeline luôn đầy.' },
         { h: 'Kết quả', p: 'Tổng hợp hoàn tất với 0 lỗi trên Arty Z7-20, và thiết kế được kiểm chứng bằng testbench. Bên Python lo chuyển JPEG → .coe và ghép lại các byte trả về.' },
       ],
     },
@@ -229,15 +229,15 @@ export const PROJECTS = [
     detail: {
       en: [
         { h: 'What it is', p: 'The course handed over an async event-loop skeleton; I wrote the HTTP layer and the handlers on top of raw sockets — no framework underneath.' },
-        { h: 'The mental shift', p: 'Non-blocking means one thread juggling many sockets: you never call recv and wait, you ask the loop which sockets are ready and only touch those. A request stops being a function call and becomes a state machine you advance whenever bytes arrive.' },
+        { h: 'Concept', p: 'Non-blocking means one thread juggling many sockets: you never call recv and wait, you ask the loop which sockets are ready and only touch those. A request stops being a function call and becomes a state machine you advance whenever bytes arrive.' },
         { h: 'Auth & sessions', p: 'I implemented Basic Auth — parse the header, return 401 with WWW-Authenticate when it is missing — and a session cookie set after login and read back on later requests.' },
-        { h: 'The chat on top', p: 'A small chat: peers register with a tracker, the tracker fans messages out, and the page long-polls every second. No WebSocket — just plain fetch loops, which is enough to feel real-time at this scale.' },
+        { h: 'Real-time chat', p: 'A small chat: peers register with a tracker, the tracker fans messages out, and the page long-polls every second. No WebSocket — just plain fetch loops, which is enough to feel real-time at this scale.' },
       ],
       vi: [
         { h: 'Là gì', p: 'Môn học cho sẵn khung event-loop async; mình viết tầng HTTP và các handler trên socket thô — không framework bên dưới.' },
-        { h: 'Cái lật trong đầu', p: 'Non-blocking nghĩa là một luồng xoay nhiều socket: không bao giờ gọi recv rồi ngồi đợi, mà hỏi event loop socket nào sẵn sàng và chỉ đụng vào cái đó. Một request thôi không còn là lời gọi hàm, mà thành máy trạng thái được đẩy tiến mỗi khi có byte tới.' },
+        { h: 'Ý tưởng', p: 'Non-blocking nghĩa là một luồng xoay nhiều socket: không bao giờ gọi recv rồi ngồi đợi, mà hỏi event loop socket nào sẵn sàng và chỉ đụng vào cái đó. Một request thôi không còn là lời gọi hàm, mà thành máy trạng thái được đẩy tiến mỗi khi có byte tới.' },
         { h: 'Auth & phiên', p: 'Mình hiện thực Basic Auth — parse header, trả 401 kèm WWW-Authenticate khi thiếu — và một cookie session set sau khi đăng nhập, rồi đọc lại ở các request sau.' },
-        { h: 'Chat phía trên', p: 'Một chat nhỏ: các peer đăng ký với tracker, tracker phát tin ra, trang long-poll mỗi giây. Không WebSocket — chỉ vòng fetch thường, đủ để cảm giác real-time ở quy mô này.' },
+        { h: 'Chat thời gian thực', p: 'Một chat nhỏ: các peer đăng ký với tracker, tracker phát tin ra, trang long-poll mỗi giây. Không WebSocket — chỉ vòng fetch thường, đủ để cảm giác real-time ở quy mô này.' },
       ],
     },
   },
@@ -262,7 +262,7 @@ export const PROJECTS = [
       en: [
         { h: 'What it is', p: 'An ESP32-S3 reads temperature and humidity (DHT20), soil moisture and light, shows them on an I2C LCD, and publishes to Adafruit IO over MQTT.' },
         { h: 'Closed-loop watering', p: 'Below a dry threshold the firmware drives the pump relay; above a wet one it stops. The thresholds are raw ADC counts, not nice units — calibrating "what number actually means dry soil" was most of the work, and it drifts with the probe.' },
-        { h: 'Why a backend at all', p: 'The Flask backend stores plants, watering logs and schedules in SQLite, and an APScheduler job runs timed watering server-side — so it keeps working even when I am not watching the dashboard.' },
+        { h: 'Why a backend', p: 'The Flask backend stores plants, watering logs and schedules in SQLite, and an APScheduler job runs timed watering server-side — so it keeps working even when I am not watching the dashboard.' },
         { h: 'Honest scope', p: 'The "YOLO" pest-detection in the name never got past an idea — there is no model and no inference code on disk. What actually runs is the firmware + MQTT + backend loop, and I would rather say that plainly than imply more.' },
       ],
       vi: [
@@ -281,8 +281,8 @@ export const PROJECTS = [
     meta: { en: 'Flask · multi-tenant', vi: 'Flask · multi-tenant' },
     role: { en: 'Solo · side project', vi: 'Cá nhân · dự án phụ' },
     blurb: {
-      en: 'A multi-tenant issue tracker where one wrong query leaks another org’s data.',
-      vi: 'Issue tracker multi-tenant — sai một query là rò dữ liệu của tổ chức khác.',
+      en: 'A multi-tenant issue tracker with strict data isolation between organizations.',
+      vi: 'Issue tracker multi-tenant với cô lập dữ liệu chặt giữa các tổ chức.',
     },
     tags: ['Flask', 'SQLAlchemy', 'Docker', 'pytest'],
     flow: ['Request', 'Session auth', 'RBAC + CSRF', 'Base repo (tenant_id)', 'Service', 'DB'],
@@ -292,16 +292,16 @@ export const PROJECTS = [
     },
     detail: {
       en: [
-        { h: 'The one rule', p: 'Many organizations share one app, but no one may ever see another tenant’s issues. That single rule shapes the entire design.' },
+        { h: 'The core requirement', p: 'Many organizations share one app, but no one may ever see another tenant’s issues. That single rule shapes the entire design.' },
         { h: 'Where isolation lives', p: 'Tenant isolation lives in the data layer, not in each route: a base repository forces every query to filter by tenant_id, so a developer cannot forget it by writing a normal-looking query. Pushing the rule down to one place is the difference between "usually safe" and "safe".' },
-        { h: 'The rest of it', p: 'On top: session auth, admin / member roles, CSRF protection on the forms, rate limits on login and writes, and email on issue changes. Routes stay thin — repositories talk to the DB, services hold the logic, schemas validate input. Alembic owns the schema; the whole thing runs under Docker with Postgres.' },
-        { h: 'The tests that matter', p: 'Of the 20 tests, the ones I care about most are not the CRUD ones — they are the ones that log in as tenant A and assert tenant B’s data is invisible. That is the property that actually matters here.' },
+        { h: 'The rest of the system', p: 'On top: session auth, admin / member roles, CSRF protection on the forms, rate limits on login and writes, and email on issue changes. Routes stay thin — repositories talk to the DB, services hold the logic, schemas validate input. Alembic owns the schema; the whole thing runs under Docker with Postgres.' },
+        { h: 'Testing', p: 'Of the 20 tests, the ones I care about most are not the CRUD ones — they are the ones that log in as tenant A and assert tenant B’s data is invisible. That is the property that actually matters here.' },
       ],
       vi: [
-        { h: 'Đúng một luật', p: 'Nhiều tổ chức dùng chung một app, nhưng không ai được phép thấy issue của tenant khác. Đúng một luật đó định hình toàn bộ thiết kế.' },
+        { h: 'Yêu cầu cốt lõi', p: 'Nhiều tổ chức dùng chung một app, nhưng không ai được phép thấy issue của tenant khác. Đúng một luật đó định hình toàn bộ thiết kế.' },
         { h: 'Cô lập nằm ở đâu', p: 'Việc cô lập tenant nằm ở tầng dữ liệu, không phải ở từng route: một base repository ép mọi query phải lọc theo tenant_id, để lập trình viên không thể quên bằng cách viết một query trông bình thường. Đẩy luật xuống một chỗ duy nhất chính là khác biệt giữa "thường thì an toàn" và "an toàn".' },
-        { h: 'Phần còn lại', p: 'Phía trên: session auth, vai trò admin / member, bảo vệ CSRF ở form, giới hạn tốc độ ở login và ghi, gửi email khi issue đổi. Route giữ mỏng — repository nói chuyện với DB, service giữ logic, schema validate đầu vào. Alembic quản lý schema; toàn bộ chạy được dưới Docker với Postgres.' },
-        { h: 'Bộ test quan trọng', p: 'Trong 20 test, bộ mình quan tâm nhất không phải mấy test CRUD — mà là test đăng nhập bằng tenant A rồi khẳng định dữ liệu tenant B vô hình. Đó mới là tính chất thật sự quan trọng ở đây.' },
+        { h: 'Phần còn lại của hệ thống', p: 'Phía trên: session auth, vai trò admin / member, bảo vệ CSRF ở form, giới hạn tốc độ ở login và ghi, gửi email khi issue đổi. Route giữ mỏng — repository nói chuyện với DB, service giữ logic, schema validate đầu vào. Alembic quản lý schema; toàn bộ chạy được dưới Docker với Postgres.' },
+        { h: 'Kiểm thử', p: 'Trong 20 test, bộ mình quan tâm nhất không phải mấy test CRUD — mà là test đăng nhập bằng tenant A rồi khẳng định dữ liệu tenant B vô hình. Đó mới là tính chất thật sự quan trọng ở đây.' },
       ],
     },
   },
@@ -313,8 +313,8 @@ export const PROJECTS = [
     meta: { en: 'Python · BDD · ILP', vi: 'Python · BDD · ILP' },
     role: { en: 'Solo · modelling course', vi: 'Cá nhân · môn mô hình hoá' },
     blurb: {
-      en: 'Reachability and deadlock analysis for Petri nets, done two ways on purpose.',
-      vi: 'Phân tích khả đạt & deadlock cho mạng Petri, cố ý làm theo hai cách.',
+      en: 'Reachability and deadlock analysis for Petri nets, implemented two ways for comparison.',
+      vi: 'Phân tích khả đạt & deadlock cho mạng Petri, cài đặt theo hai cách để so sánh.',
     },
     tags: ['Python', 'BDD', 'ILP', 'PuLP'],
     flow: ['PNML', 'Parser', 'Explicit BFS / Symbolic BDD', 'Reachability + deadlock', 'ILP (PuLP)'],
@@ -324,14 +324,14 @@ export const PROJECTS = [
     },
     detail: {
       en: [
-        { h: 'What it answers', p: 'It parses a Petri net from PNML, then answers two questions: which states are reachable, and can the system deadlock — reach a state where nothing can fire.' },
-        { h: 'Two approaches, on purpose', p: 'The explicit method does BFS over markings: simple, but the state set blows up exponentially. The symbolic method encodes whole sets of states as a BDD, so it scales to nets the explicit search chokes on. Doing both shows exactly where each one breaks.' },
+        { h: 'Scope', p: 'It parses a Petri net from PNML, then answers two questions: which states are reachable, and can the system deadlock — reach a state where nothing can fire.' },
+        { h: 'Two approaches', p: 'The explicit method does BFS over markings: simple, but the state set blows up exponentially. The symbolic method encodes whole sets of states as a BDD, so it scales to nets the explicit search chokes on. Doing both shows exactly where each one breaks.' },
         { h: 'Optimization', p: 'Finding the best firing sequence under constraints is framed as an integer linear program and solved with PuLP — useful when you want the best reachable sequence, not just any reachable one.' },
         { h: 'What it taught me', p: 'This is the project that made state-space explosion concrete: the same question, two encodings, and wildly different limits depending on how you represent the states.' },
       ],
       vi: [
-        { h: 'Trả lời gì', p: 'Nó parse mạng Petri từ PNML, rồi trả lời hai câu hỏi: trạng thái nào tới được, và hệ có deadlock không — tới một trạng thái mà không transition nào fire được.' },
-        { h: 'Hai cách, cố ý vậy', p: 'Cách tường minh duyệt BFS trên các marking: đơn giản, nhưng tập trạng thái nổ theo cấp số mũ. Cách ký hiệu mã hóa cả tập trạng thái thành BDD nên co giãn tới những mạng mà cách tường minh nghẹn. Làm cả hai để thấy chính xác mỗi cách gãy ở đâu.' },
+        { h: 'Phạm vi', p: 'Nó parse mạng Petri từ PNML, rồi trả lời hai câu hỏi: trạng thái nào tới được, và hệ có deadlock không — tới một trạng thái mà không transition nào fire được.' },
+        { h: 'Hai cách tiếp cận', p: 'Cách tường minh duyệt BFS trên các marking: đơn giản, nhưng tập trạng thái nổ theo cấp số mũ. Cách ký hiệu mã hóa cả tập trạng thái thành BDD nên co giãn tới những mạng mà cách tường minh nghẹn. Làm cả hai để thấy chính xác mỗi cách gãy ở đâu.' },
         { h: 'Tối ưu', p: 'Tìm chuỗi fire tốt nhất dưới ràng buộc được đặt thành bài quy hoạch tuyến tính nguyên và giải bằng PuLP — hữu ích khi cần chuỗi tới được tốt nhất, chứ không chỉ một chuỗi tới được bất kỳ.' },
         { h: 'Học được gì', p: 'Đây là dự án làm cho mình hiểu cụ thể "state-space explosion": cùng một câu hỏi, hai cách mã hóa, và giới hạn khác nhau một trời một vực tùy cách biểu diễn trạng thái.' },
       ],
@@ -357,14 +357,14 @@ export const PROJECTS = [
     detail: {
       en: [
         { h: 'What it is', p: 'UCI Internet-Ads: predict whether an image on a page is an advert, from features like geometry, aspect ratio and URL tokens.' },
-        { h: 'Most of the work is before the model', p: 'The dataset has missing values and over a thousand sparse features, so cleaning the data and choosing what to keep mattered far more than which model I picked.' },
-        { h: 'Earning trust in a feature', p: 'Before trusting any feature I checked that it actually separates the two classes — t-tests where the assumptions hold, Mann-Whitney where they do not. Then logistic regression, read through odds ratios so a coefficient means something concrete.' },
+        { h: 'Data preparation', p: 'The dataset has missing values and over a thousand sparse features, so cleaning the data and choosing what to keep mattered far more than which model I picked.' },
+        { h: 'Reliability', p: 'Before trusting any feature I checked that it actually separates the two classes — t-tests where the assumptions hold, Mann-Whitney where they do not. Then logistic regression, read through odds ratios so a coefficient means something concrete.' },
         { h: 'Judging it honestly', p: 'On an imbalanced set raw accuracy lies, so I judged the model by its ROC curve instead — which keeps you honest about false positives.' },
       ],
       vi: [
         { h: 'Là gì', p: 'UCI Internet-Ads: đoán một ảnh trên trang có phải quảng cáo không, từ đặc trưng như hình học, tỉ lệ và token URL.' },
-        { h: 'Phần lớn việc nằm trước mô hình', p: 'Dữ liệu có giá trị thiếu và hơn ngàn đặc trưng thưa, nên làm sạch dữ liệu và chọn giữ cái gì quan trọng hơn nhiều so với việc chọn mô hình nào.' },
-        { h: 'Tin một đặc trưng', p: 'Trước khi tin một đặc trưng, mình kiểm tra nó có thật sự tách hai lớp không — t-test khi giả định thỏa, Mann-Whitney khi không. Rồi hồi quy logistic, đọc qua odds ratio để một hệ số có nghĩa cụ thể.' },
+        { h: 'Chuẩn bị dữ liệu', p: 'Dữ liệu có giá trị thiếu và hơn ngàn đặc trưng thưa, nên làm sạch dữ liệu và chọn giữ cái gì quan trọng hơn nhiều so với việc chọn mô hình nào.' },
+        { h: 'Độ tin cậy', p: 'Trước khi tin một đặc trưng, mình kiểm tra nó có thật sự tách hai lớp không — t-test khi giả định thỏa, Mann-Whitney khi không. Rồi hồi quy logistic, đọc qua odds ratio để một hệ số có nghĩa cụ thể.' },
         { h: 'Đánh giá trung thực', p: 'Trên tập lệch, accuracy thô nói dối, nên mình đánh giá mô hình bằng đường ROC — thứ giữ cho mình thành thật về false positive.' },
       ],
     },
