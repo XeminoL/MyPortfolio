@@ -115,7 +115,7 @@ function renderProjects() {
       </button>`).join('');
   $('#projects').innerHTML = `<div class="wrap">
       ${sectionHead('04', t().sectionProjects, t().projectsLead)}
-      <div class="proj-grid">${cards}</div>
+      <div class="proj-grid${PROJECTS.length === 1 ? ' single' : ''}">${cards}</div>
     </div>`;
 }
 

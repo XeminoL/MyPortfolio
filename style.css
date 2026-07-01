@@ -177,6 +177,8 @@ section { padding: clamp(60px, 9vh, 110px) 0; }
 
 /* ===== PROJECTS ===== */
 .proj-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 290px), 1fr)); gap: 20px; }
+/* A single featured project gets a wider centered card instead of a lonely box on the left. */
+.proj-grid.single { grid-template-columns: 1fr; max-width: 540px; }
 .proj-card {
   position: relative; text-align: left; cursor: pointer; background: var(--surface);
   border: 1px solid var(--border); border-radius: 16px; padding: 24px; font-family: inherit; color: inherit;
