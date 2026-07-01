@@ -133,10 +133,9 @@ function renderContact() {
       <div class="contact-cards reveal">
         ${card('mail', 'Email', p.email, `mailto:${p.email}`)}
         ${card('gh', 'GitHub', `github.com/${p.github}`, p.githubUrl)}
-        ${card('in', 'LinkedIn', `/${p.linkedin}`, p.linkedinUrl)}
+        ${card('in', 'LinkedIn', p.linkedin, p.linkedinUrl)}
         ${card('fb', 'Facebook', 'khang.ang', p.facebookUrl)}
       </div>
-      <p class="contact-avail reveal">${esc(pick(p.availability))}</p>
     </div>`;
 }
 

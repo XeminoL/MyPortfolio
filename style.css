@@ -239,17 +239,17 @@ section { padding: clamp(60px, 9vh, 110px) 0; }
 .contact-card:hover { border-color: var(--green); transform: translateY(-5px); box-shadow: 0 14px 36px var(--shadow); }
 .contact-card .cc-label { color: var(--text-faint); font-size: 12px; letter-spacing: 1px; text-transform: uppercase; }
 .contact-card .cc-value { font-size: 14px; overflow-wrap: anywhere; text-align: center; }
-.contact-avail { text-align: center; color: var(--text-faint); font-size: 14px; max-width: 540px; margin: 26px auto 0; line-height: 1.7; }
 /* self-drawn contact marks (no emoji) */
-.cc-icon { position: relative; width: 40px; height: 40px; border-radius: 10px; border: 1px solid var(--border-hi); background: var(--bg-2); }
+.cc-icon { position: relative; width: 44px; height: 44px; border-radius: 12px; border: 1px solid var(--border-hi); background: radial-gradient(circle at 50% 35%, var(--surface), var(--bg-2)); transition: box-shadow 0.3s var(--ease), border-color 0.3s; }
+.contact-card:hover .cc-icon { border-color: var(--green); box-shadow: 0 0 0 4px rgba(126, 231, 135, 0.08), 0 6px 18px rgba(126, 231, 135, 0.12); }
 .cc-icon::before, .cc-icon::after { content: ''; position: absolute; }
-.cc-mail::before { left: 9px; top: 13px; width: 22px; height: 14px; border: 1.6px solid var(--green); border-radius: 2px; }
-.cc-mail::after { left: 9px; top: 13px; width: 22px; height: 11px; border-top: 1.6px solid var(--green); transform: skewX(0); clip-path: polygon(0 0, 50% 80%, 100% 0); }
-.cc-gh::before { left: 11px; top: 13px; width: 18px; height: 14px; color: var(--green); border: 1.6px solid var(--green); border-radius: 3px; }
-.cc-gh::after { left: 16px; top: 24px; width: 8px; height: 7px; border: 1.6px solid var(--green); border-top: none; }
-.cc-in::before { left: 11px; top: 11px; content: 'in'; color: var(--green); font-size: 14px; font-weight: 800; font-family: 'JetBrains Mono', monospace; }
+.cc-mail::before { left: 11px; top: 15px; width: 22px; height: 14px; border: 1.6px solid var(--green); border-radius: 2px; }
+.cc-mail::after { left: 11px; top: 15px; width: 22px; height: 11px; border-top: 1.6px solid var(--green); transform: skewX(0); clip-path: polygon(0 0, 50% 80%, 100% 0); }
+.cc-gh::before { left: 13px; top: 15px; width: 18px; height: 14px; color: var(--green); border: 1.6px solid var(--green); border-radius: 3px; }
+.cc-gh::after { left: 18px; top: 26px; width: 8px; height: 7px; border: 1.6px solid var(--green); border-top: none; }
+.cc-in::before { left: 13px; top: 13px; content: 'in'; color: var(--green); font-size: 14px; font-weight: 800; font-family: 'JetBrains Mono', monospace; }
 .cc-in::after { display: none; }
-.cc-fb::before { left: 14px; top: 9px; content: 'f'; color: var(--green); font-size: 18px; font-weight: 800; font-family: Georgia, serif; }
+.cc-fb::before { left: 16px; top: 11px; content: 'f'; color: var(--green); font-size: 18px; font-weight: 800; font-family: Georgia, serif; }
 .cc-fb::after { display: none; }
 
 /* ===== np-logo (equalizer mark used in nav + popup) ===== */

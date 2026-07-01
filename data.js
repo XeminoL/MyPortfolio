@@ -13,8 +13,8 @@ export const PROFILE = {
   email: 'dangthaikhang34@gmail.com',
   github: 'XeminoL',
   githubUrl: 'https://github.com/XeminoL',
-  linkedin: 'khang-dang-329645296',
-  linkedinUrl: 'https://www.linkedin.com/in/khang-dang-329645296/',
+  linkedin: 'thái-khang-đặng',
+  linkedinUrl: 'https://www.linkedin.com/in/th%C3%A1i-khang-%C4%91%E1%BA%B7ng-329645296/',
   facebookUrl: 'https://www.facebook.com/khang.ang.270801/',
   location: { en: 'Ho Chi Minh City, Vietnam', vi: 'TP. Hồ Chí Minh, Việt Nam' },
   role: { en: 'Computer Engineering @ HCMUT', vi: 'Kỹ thuật Máy tính @ Bách Khoa' },
@@ -26,11 +26,6 @@ export const PROFILE = {
   tagline: {
     en: "Computer Engineering student at HCMUT. I build things, take them apart to see how they work, and put them back together properly.",
     vi: "Sinh viên Kỹ thuật Máy tính tại ĐH Bách Khoa. Mình dựng đồ, tháo ra xem nó chạy thế nào, rồi ráp lại cho tử tế.",
-  },
-  // one honest line for the contact section
-  availability: {
-    en: "Open to internships. Happy to talk about anything I've built here.",
-    vi: "Đang tìm cơ hội thực tập. Sẵn sàng trao đổi về bất cứ thứ gì mình đã làm ở đây.",
   },
 };
 
@@ -196,7 +191,7 @@ export const UI = {
     timelineLead: 'How I got here, roughly.',
     nowLabel: 'Now',
     projectsLead: 'The one I keep coming back to. Open it for the details.',
-    contactLead: 'Open to talk — pick whichever is easiest.',
+    contactLead: 'The fastest ways to reach me.',
     readMore: 'Read more',
     backToProjects: 'Back',
     roleLabel: 'Role',
@@ -229,7 +224,7 @@ export const UI = {
     timelineLead: 'Mình tới đây như thế nào, đại khái vậy.',
     nowLabel: 'Hiện tại',
     projectsLead: 'Dự án mình quay lại nhiều nhất. Mở ra để xem chi tiết.',
-    contactLead: 'Sẵn sàng trao đổi — chọn kênh nào tiện nhất.',
+    contactLead: 'Cách nhanh nhất để liên hệ mình.',
     readMore: 'Xem thêm',
     backToProjects: 'Quay lại',
     roleLabel: 'Vai trò',
