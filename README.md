@@ -17,16 +17,15 @@ dependencies. Every mark on the page is drawn in CSS or canvas; there are no emo
   Timeline + Now, Projects, Contact.
 - **Project detail pages** — each project opens its own page (hash route) with an
   at-a-glance list, a self-drawn flow diagram, and the story told technically.
-- **3D globe** — a rotating wireframe Earth (graticule + dotted continents), drawn from
-  scratch on canvas. Drag to spin it. Open it from the command palette.
+- **3D globe** — a rotating Earth (atmosphere glow, graticule, latitude-shaded dotted
+  continents, twinkling city lights), drawn from scratch on canvas. Drag to spin it.
 - **Spotify "Now Playing"** — a popup showing the track I'm really listening to, via a
   tiny serverless function (see [`SPOTIFY_SETUP.md`](SPOTIFY_SETUP.md)).
-- **Command palette** — <kbd>Ctrl / ⌘ + K</kbd> to jump anywhere, open the globe, or
-  switch language.
+- **Command palette** — <kbd>Ctrl / ⌘ + K</kbd> to jump anywhere or switch language.
 - **Live status strip** — wall clock + session uptime. Cursor spotlight on desktop.
 - **Bilingual** EN ⇄ VI, remembered across visits.
-- **Easter eggs** — type `matrix`, enter the Konami code, or click the glitchy footer
-  glyph to toggle a matrix rain.
+- **Extras** — a small "// extras" panel (bottom-right) with three toggles: the globe,
+  a matrix rain, and an amber-CRT theme. The Konami code also triggers the rain.
 - **Accessible & responsive** — keyboard support throughout, visible focus rings,
   Escape closes any overlay, and everything respects `prefers-reduced-motion`.
 
