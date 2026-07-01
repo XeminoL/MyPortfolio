@@ -311,13 +311,37 @@ section { padding: clamp(60px, 9vh, 110px) 0; }
 .globe-hint { position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%); color: var(--text-faint); font-size: 12px; letter-spacing: 1px; z-index: 2; pointer-events: none; }
 
 /* ===== hidden matrix glyph in footer ===== */
-/* Egg dock — three fixed, static dots at bottom-right. Quiet but not moving. */
-.egg-dock { position: fixed; right: 16px; bottom: 14px; z-index: 60; display: flex; gap: 9px; }
-.egg { width: 9px; height: 9px; padding: 0; border-radius: 50%; border: 1px solid var(--border-hi); background: var(--surface); cursor: pointer; position: relative; transition: background 0.25s, box-shadow 0.25s, transform 0.15s; }
-.egg:hover { background: var(--green); box-shadow: 0 0 10px var(--glow); transform: scale(1.25); }
-.egg::after { content: attr(data-tip); position: absolute; bottom: 150%; left: 50%; transform: translateX(-50%); font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 1px; color: var(--green); background: var(--surface); border: 1px solid var(--border); border-radius: 5px; padding: 2px 7px; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
-.egg:hover::after { opacity: 1; }
-.egg:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; }
+/* Egg dock — a small terminal-style panel of extras, fixed bottom-right.
+   Static, distinct icons + labels: reads as clickable without being loud. */
+.egg-dock {
+  position: fixed; right: 16px; bottom: 14px; z-index: 60;
+  display: flex; align-items: center; gap: 4px; padding: 5px 7px;
+  background: color-mix(in srgb, var(--surface) 82%, transparent);
+  border: 1px solid var(--border); border-radius: 10px;
+  backdrop-filter: blur(6px); opacity: 0.62; transition: opacity 0.25s;
+}
+.egg-dock:hover { opacity: 1; }
+.egg-dock-tag { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-faint); letter-spacing: 0.5px; margin-right: 3px; }
+.egg {
+  display: inline-flex; align-items: center; gap: 5px; padding: 4px 7px;
+  background: transparent; border: 1px solid transparent; border-radius: 7px;
+  cursor: pointer; color: var(--text-dim); transition: all 0.2s var(--ease);
+}
+.egg:hover { border-color: var(--green); color: var(--green); background: var(--bg-2); }
+.egg:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+.egg-name { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.5px; }
+.egg-ico { position: relative; width: 13px; height: 13px; flex: none; }
+/* globe — ringed circle with a meridian */
+.egg-ico-globe { border: 1.4px solid currentColor; border-radius: 50%; }
+.egg-ico-globe::before { content: ''; position: absolute; inset: 0; margin: auto; width: 5px; height: 13px; border: 1.4px solid currentColor; border-radius: 50%; }
+/* matrix — three falling bars */
+.egg-ico-matrix::before, .egg-ico-matrix::after { content: ''; position: absolute; top: 0; width: 2px; background: currentColor; }
+.egg-ico-matrix::before { left: 2px; height: 9px; box-shadow: 4px 3px 0 currentColor; }
+.egg-ico-matrix::after { left: 6px; height: 13px; }
+/* amber — half-filled circle (day/night) */
+.egg-ico-amber { border: 1.4px solid currentColor; border-radius: 50%; overflow: hidden; }
+.egg-ico-amber::before { content: ''; position: absolute; right: 0; top: 0; bottom: 0; width: 50%; background: currentColor; }
+@media (max-width: 560px) { .egg-name, .egg-dock-tag { display: none; } .egg { padding: 5px; } }
 @keyframes glitch { 0%,92%{transform:translate(0,0);} 93%{transform:translate(-1px,1px); opacity:0.6;} 94%{transform:translate(1px,-1px);} 95%{transform:translate(0,0); opacity:0.3;} }
 
 /* ===== footer + status ===== */

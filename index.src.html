@@ -73,12 +73,19 @@
     <span id="footerText"></span>
   </footer>
 
-  <!-- Hidden feature triggers: three small, fixed, static dots. Quiet but clickable —
-       not floating, not blinking. Hover reveals a label; click runs the feature. -->
-  <div class="egg-dock" id="eggDock" aria-hidden="true">
-    <button class="egg" data-egg="globe"  data-tip="globe"  aria-label="globe"></button>
-    <button class="egg" data-egg="matrix" data-tip="matrix" aria-label="matrix"></button>
-    <button class="egg" data-egg="amber"  data-tip="amber"  aria-label="amber"></button>
+  <!-- Little terminal-style control panel of extras, fixed bottom-right. Static,
+       distinct icons + labels so it reads as "things you can click" without shouting. -->
+  <div class="egg-dock" id="eggDock">
+    <span class="egg-dock-tag">// extras</span>
+    <button class="egg" data-egg="globe"  aria-label="Globe">
+      <span class="egg-ico egg-ico-globe"></span><span class="egg-name">globe</span>
+    </button>
+    <button class="egg" data-egg="matrix" aria-label="Matrix rain">
+      <span class="egg-ico egg-ico-matrix"></span><span class="egg-name">matrix</span>
+    </button>
+    <button class="egg" data-egg="amber"  aria-label="Amber CRT">
+      <span class="egg-ico egg-ico-amber"></span><span class="egg-name">amber</span>
+    </button>
   </div>
 
   <!-- PROJECT DETAIL PAGE (hash route #/p/<id>) -->
