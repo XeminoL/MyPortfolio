@@ -51,6 +51,37 @@ body.amber::after {
   @keyframes crtflicker { 0%, 96%, 100% { filter: none; } 98% { filter: brightness(1.08); } }
 }
 
+/* ===== GLITCH EGG (amber CRT) — a rare horror-.exe flicker, then a faint
+   sigil blinks into a corner for a few seconds; click it to flip amber CRT. ===== */
+.glitch-overlay {
+  position: fixed; inset: 0; z-index: 9997; pointer-events: none; opacity: 0;
+  background:
+    linear-gradient(90deg, rgba(255,0,64,0.12), transparent 8%, transparent 92%, rgba(0,200,255,0.12)),
+    repeating-linear-gradient(rgba(255,255,255,0.05) 0 2px, transparent 2px 5px);
+  mix-blend-mode: screen;
+}
+.glitch-overlay.fire { animation: glitchfire 0.42s steps(2) 1; }
+@keyframes glitchfire {
+  0% { opacity: 0; transform: translate(0,0); }
+  15% { opacity: 1; transform: translate(-6px,2px); filter: hue-rotate(30deg); }
+  30% { opacity: 0.7; transform: translate(5px,-3px); }
+  45% { opacity: 1; transform: translate(-3px,1px); clip-path: inset(20% 0 40% 0); }
+  60% { opacity: 0.5; transform: translate(4px,0); clip-path: inset(60% 0 10% 0); }
+  100% { opacity: 0; transform: translate(0,0); clip-path: none; }
+}
+@media (prefers-reduced-motion: reduce) { .glitch-overlay.fire { animation: none; opacity: 0; } }
+.glitch-sigil {
+  position: fixed; z-index: 9996; right: 22px; bottom: 74px;
+  width: 30px; height: 30px; padding: 0; border: none; border-radius: 8px;
+  background: transparent; color: var(--green); font-size: 18px; line-height: 30px;
+  cursor: pointer; opacity: 0; pointer-events: none; transition: opacity 0.4s;
+  text-shadow: 0 0 8px var(--glow); font-family: 'JetBrains Mono', monospace;
+}
+.glitch-sigil.show { opacity: 0.22; pointer-events: auto; animation: sigilflick 2.4s steps(1) infinite; }
+.glitch-sigil.show:hover { opacity: 1; }
+@keyframes sigilflick { 0%,90%,100% { opacity: 0.22; } 92% { opacity: 0.5; transform: translateX(-2px); } 95% { opacity: 0.15; transform: translateX(2px); } }
+body.amber .glitch-sigil { color: #ff6a3d; }
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body {
