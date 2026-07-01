@@ -431,12 +431,12 @@ const palette = (() => {
     const proj = PROJECTS.map((p) => ({ icon: '#', label: p.name, run: () => { location.hash = `#/p/${p.id}`; } }));
     const acts = [
       { icon: '~', label: state.lang === 'en' ? 'Now playing' : 'Đang nghe', run: () => spotify.open() },
-      { icon: '~', label: 'Globe', run: () => globe.open() },
-      { icon: '~', label: 'Matrix mode', run: () => matrixRain.toggle() },
       { icon: '~', label: state.lang === 'en' ? 'Tiếng Việt' : 'English', run: () => setLang(state.lang === 'en' ? 'vi' : 'en') },
       { icon: '~', label: 'GitHub', run: () => window.open(PROFILE.githubUrl, '_blank') },
       { icon: '~', label: 'Email', run: () => { window.location.href = `mailto:${PROFILE.email}`; } },
     ];
+    // Globe and Matrix are intentionally NOT listed here — they're easter eggs
+    // (type "earth"/"matrix", the Konami code, or the glitching footer glyph).
     return [...nav, ...proj, ...acts];
   }
   function go(id) { document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' }); }
@@ -544,15 +544,30 @@ function initMatrixGlyph() {
   g.addEventListener('click', () => matrixRain.toggle());
 }
 
-/* type the word "matrix" anywhere → toggle matrix mode */
-function initMatrixWord() {
+/* Hidden word triggers: type these anywhere (when not in an input).
+   "matrix" → matrix rain · "earth"/"globe" → the 3D globe · "amber" → CRT theme. */
+function initWordEggs() {
   let buf = '';
   addEventListener('keydown', (e) => {
     if (e.key.length !== 1) return;
+    const el = document.activeElement;
+    if (el && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA')) return;
     buf = (buf + e.key.toLowerCase()).slice(-6);
-    if (buf === 'matrix') { buf = ''; matrixRain.toggle(); }
+    if (buf.endsWith('matrix')) { buf = ''; matrixRain.toggle(); }
+    else if (buf.endsWith('earth') || buf.endsWith('globe')) { buf = ''; globe.open(); }
+    else if (buf.endsWith('amber')) { buf = ''; crt.toggle(); }
   });
 }
+
+/* Hidden egg: "amber" → swap the green phosphor palette for an amber-CRT one,
+   the way old monochrome monitors looked. Toggles a body class; CSS does the rest. */
+const crt = (() => ({
+  toggle() {
+    const on = document.body.classList.toggle('amber');
+    toast(on ? (state.lang === 'en' ? 'amber CRT' : 'chế độ hổ phách')
+             : (state.lang === 'en' ? 'green phosphor' : 'lân quang xanh'));
+  },
+}))();
 
 /* =====================================================================
    GLOBE — a real rotating 3D wireframe Earth (dotted landmasses),
@@ -617,20 +632,34 @@ const globe = (() => {
     function draw() {
       const cx = W / 2; const cy = H / 2; const g = accent(); const c = cyan();
       ctx.clearRect(0, 0, W, H);
-      // halo
-      const halo = ctx.createRadialGradient(cx, cy, Rad * 0.6, cx, cy, Rad * 1.5);
-      halo.addColorStop(0, `${g}22`); halo.addColorStop(1, 'transparent');
-      ctx.fillStyle = halo; ctx.beginPath(); ctx.arc(cx, cy, Rad * 1.5, 0, 7); ctx.fill();
+      // atmosphere glow — a soft outer ring that reads as a lit atmosphere
+      const atmo = ctx.createRadialGradient(cx, cy, Rad * 0.92, cx, cy, Rad * 1.35);
+      atmo.addColorStop(0, 'transparent');
+      atmo.addColorStop(0.45, `${c}30`);
+      atmo.addColorStop(1, 'transparent');
+      ctx.fillStyle = atmo; ctx.beginPath(); ctx.arc(cx, cy, Rad * 1.35, 0, 7); ctx.fill();
+      // inner halo
+      const halo = ctx.createRadialGradient(cx, cy, Rad * 0.55, cx, cy, Rad * 1.15);
+      halo.addColorStop(0, `${g}1c`); halo.addColorStop(1, 'transparent');
+      ctx.fillStyle = halo; ctx.beginPath(); ctx.arc(cx, cy, Rad * 1.15, 0, 7); ctx.fill();
+      // ocean sphere — subtle dark fill so the globe reads as solid, not a wireframe cage
+      const ocean = ctx.createRadialGradient(cx - Rad * 0.3, cy - Rad * 0.3, Rad * 0.1, cx, cy, Rad);
+      ocean.addColorStop(0, `${c}12`); ocean.addColorStop(1, 'rgba(5,8,13,0.55)');
+      ctx.fillStyle = ocean; ctx.beginPath(); ctx.arc(cx, cy, Rad, 0, 7); ctx.fill();
       // rim
-      ctx.strokeStyle = `${c}55`; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(cx, cy, Rad, 0, 7); ctx.stroke();
+      ctx.strokeStyle = `${c}66`; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(cx, cy, Rad, 0, 7); ctx.stroke();
       const cosR = Math.cos(rot); const sinR = Math.sin(rot);
       const cosT = Math.cos(tilt); const sinT = Math.sin(tilt);
       // graticule (lat/long lines)
       ctx.strokeStyle = `${g}22`; ctx.lineWidth = 1;
       for (let la = -60; la <= 60; la += 30) drawParallel(la);
       for (let lo = 0; lo < 180; lo += 30) drawMeridian(lo);
-      // land dots
+      // land dots — colored by latitude (green near equator → cyan near poles),
+      // with occasional brighter "city lights" that twinkle.
+      const now = (typeof performance !== 'undefined' ? performance.now() : 0) / 1000;
+      let idx = 0;
       for (const [x0, y0, z0] of LAND) {
+        idx += 1;
         let x = x0 * cosR + z0 * sinR;
         const z1 = -x0 * sinR + z0 * cosR;
         let y = y0 * cosT - z1 * sinT;
@@ -638,8 +667,17 @@ const globe = (() => {
         if (z < 0) continue;                       // back of the sphere
         const px = cx + x * Rad; const py = cy - y * Rad;
         const depth = 0.4 + z * 0.6;
-        ctx.fillStyle = g; ctx.globalAlpha = depth;
-        ctx.beginPath(); ctx.arc(px, py, 1.9 * depth, 0, 7); ctx.fill();
+        const isCity = idx % 23 === 0;             // ~1 in 23 dots is a "city"
+        if (isCity) {
+          const tw = 0.55 + 0.45 * Math.sin(now * 3 + idx);
+          ctx.fillStyle = c; ctx.globalAlpha = depth * tw;
+          ctx.beginPath(); ctx.arc(px, py, 2.6 * depth, 0, 7); ctx.fill();
+        } else {
+          // blend green→cyan by absolute latitude (|y0| = 0 equator, 1 pole)
+          ctx.fillStyle = Math.abs(y0) > 0.55 ? c : g;
+          ctx.globalAlpha = depth;
+          ctx.beginPath(); ctx.arc(px, py, 1.9 * depth, 0, 7); ctx.fill();
+        }
       }
       ctx.globalAlpha = 1;
       function project(la, lo) {
@@ -933,6 +971,6 @@ addEventListener('hashchange', handleRoute);
 initMobileNav();
 initKonami();
 initMatrixGlyph();
-initMatrixWord();
+initWordEggs();
 initSpotlight();
 intro.run();

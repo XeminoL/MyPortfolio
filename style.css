@@ -22,6 +22,35 @@
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* Hidden "amber" easter egg: recolor the whole phosphor palette to amber CRT,
+   add a warm tint + faint scanlines. Toggled by body.amber (type "amber"). */
+body.amber {
+  --bg: #100a02;
+  --bg-2: #16100440;
+  --surface: #1c1305;
+  --surface-2: #1c130550;
+  --border: #3a2a0e;
+  --border-hi: #55400f;
+  --green: #ffb84d;
+  --green-dim: #e0952e;
+  --cyan: #ffcf7a;
+  --blue: #ffd9a0;
+  --text: #ffe6bf;
+  --text-dim: #d8b98a;
+  --text-faint: #a88c62;
+  --glow: rgba(255, 184, 77, 0.4);
+}
+body.amber::after {
+  content: '';
+  position: fixed; inset: 0; z-index: 9998; pointer-events: none;
+  background: repeating-linear-gradient(rgba(255, 184, 77, 0.05) 0 1px, transparent 1px 3px);
+  mix-blend-mode: overlay;
+}
+@media (prefers-reduced-motion: no-preference) {
+  body.amber { animation: crtflicker 6s infinite; }
+  @keyframes crtflicker { 0%, 96%, 100% { filter: none; } 98% { filter: brightness(1.08); } }
+}
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body {
