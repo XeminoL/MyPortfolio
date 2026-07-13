@@ -688,12 +688,19 @@ const clock = (() => {
 function initSpotlight() {
   if (matchMedia('(pointer: coarse)').matches) return;
   const el = $('#spotlight');
+  const scene = $('#bgScene');
   if (!el) return;
   let tx = 0; let ty = 0; let x = 0; let y = 0; let raf = null;
   addEventListener('pointermove', (e) => { tx = e.clientX; ty = e.clientY; if (!raf) raf = requestAnimationFrame(loop); });
   function loop() {
     x += (tx - x) * 0.15; y += (ty - y) * 0.15;
     el.style.transform = `translate(${x}px, ${y}px)`;
+    // parallax: nudge the whole background scene a little opposite the cursor
+    if (scene) {
+      const px = (x / innerWidth - 0.5) * -22;
+      const py = (y / innerHeight - 0.5) * -22;
+      scene.style.transform = `translate3d(${px}px, ${py}px, 0)`;
+    }
     if (Math.abs(tx - x) > 0.5 || Math.abs(ty - y) > 0.5) raf = requestAnimationFrame(loop); else raf = null;
   }
 }
