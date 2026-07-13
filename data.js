@@ -58,11 +58,13 @@ export const FACTS = [
 export const ABOUT = {
   en: [
     "Computer Engineering student at HCMUT.",
-    "The ones I liked, I kept building after the deadline until they actually worked. Most of what I know came from that.",
+    "I mostly taught myself by pulling things apart to see how they work. The projects here started that way: I'd finish the assignment, then keep going until the thing actually ran the way I wanted.",
+    "I don't mind being the one who doesn't know yet. That's usually where the interesting part starts.",
   ],
   vi: [
     "Sinh viên Kỹ thuật Máy tính ở Bách Khoa.",
-    "Cái nào thích thì mình làm tiếp sau hạn nộp cho tới khi nó chạy thật. Phần lớn thứ mình biết đến từ đó.",
+    "Phần lớn mình tự học bằng cách tháo mọi thứ ra xem nó chạy thế nào. Mấy project ở đây bắt đầu vậy: xong bài rồi mình làm tiếp cho tới khi nó chạy đúng ý.",
+    "Mình không ngại là người chưa biết. Đó thường là chỗ phần thú vị bắt đầu.",
   ],
 };
 
