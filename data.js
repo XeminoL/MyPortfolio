@@ -24,8 +24,8 @@ export const PROFILE = {
     vi: ['những thứ chạy được', 'một CPU bằng Verilog', 'một backend multi-tenant', 'một hệ thống IoT'],
   },
   tagline: {
-    en: "Computer Engineering student at HCMUT. I build things, take them apart to see how they work, and put them back together properly.",
-    vi: "Sinh viên Kỹ thuật Máy tính tại ĐH Bách Khoa. Mình dựng đồ, tháo ra xem nó chạy thế nào, rồi ráp lại cho tử tế.",
+    en: "Computer Engineering student at HCMUT. I've built a bit of everything so far, and I usually learn a thing by just building it.",
+    vi: "Sinh viên Kỹ thuật Máy tính ở Bách Khoa. Tới giờ mình làm qua khá nhiều thứ, và thường thì cứ bắt tay làm là hiểu.",
   },
 };
 
@@ -57,41 +57,41 @@ export const FACTS = [
 /* About — three short paragraphs. Plain and factual. */
 export const ABOUT = {
   en: [
-    "I'm a Computer Engineering student at HCMUT. I like taking things apart to understand how they actually work, then rebuilding them until they're clean.",
-    "Most of what I've made started as coursework I pushed further than the assignment asked for — because half-understanding something bothers me more than the extra hours do.",
-    "I work best when I can go deep on a problem, sit with it, and get it right rather than just get it running.",
+    "I'm a Computer Engineering student at HCMUT. Over the last three years I've touched a lot of different things: mạch and Verilog, microcontrollers, an OS assignment, some networking, a bit of ML and stats, and web backends. I don't have one thing I call my specialty yet, and I'm okay with that for now.",
+    "Most of it started as coursework. A few I kept going on after the deadline because I wanted them to actually work, not just pass. That's usually how I end up learning something properly.",
+    "I'm decent at picking up whatever a project needs and getting it working. If you hand me something I haven't done before, I'll figure it out.",
   ],
   vi: [
-    "Mình là sinh viên Kỹ thuật Máy tính tại ĐH Bách Khoa. Mình thích tháo mọi thứ ra để hiểu nó thật sự chạy thế nào, rồi ráp lại cho tới khi gọn gàng.",
-    "Phần lớn thứ mình làm bắt đầu từ bài tập môn học mà mình đẩy đi xa hơn đề bài — vì hiểu nửa vời làm mình khó chịu hơn là bỏ thêm giờ.",
-    "Mình làm tốt nhất khi được đào sâu một bài toán, ngồi lại với nó, và làm cho đúng chứ không chỉ cho chạy.",
+    "Mình là sinh viên Kỹ thuật Máy tính ở Bách Khoa. Ba năm qua mình làm qua khá nhiều thứ: mạch với Verilog, vi điều khiển, một đồ án hệ điều hành, ít mạng máy tính, chút ML và thống kê, với backend web. Mình chưa có mảng nào gọi là chuyên, và giờ mình thấy vậy cũng ổn.",
+    "Phần lớn bắt đầu từ bài tập môn. Vài cái mình làm tiếp sau khi hết hạn, vì muốn nó chạy thật chứ không chỉ qua môn. Thường thì đó là lúc mình hiểu một thứ tới nơi.",
+    "Mình bắt nhịp được với thứ dự án cần và làm cho nó chạy. Đưa mình cái gì chưa làm bao giờ, mình cũng mò ra.",
   ],
 };
 
 /* How I work — concrete habits, each tied to a real project. */
 export const APPROACH = {
   en: [
-    { title: 'Learn by building it',
-      body: "The fastest way I understand something is to build a rough version myself. Most of my projects exist because I wanted to see how the thing actually works, not because I had to." },
-    { title: 'Do it properly',
-      body: "I would rather ship one thing that is correct and clean than three that half-work. In the issue tracker, for instance, tenant isolation sits in one place so it cannot be forgotten." },
-    { title: 'Get to the bottom of it',
-      body: "When something breaks or behaves oddly, I want to know why, not just make it stop. Most of what I've learned came from chasing one of those down." },
+    { title: 'I learn by doing',
+      body: "Reading docs doesn't stick with me. I have to actually build the thing, break it, and see what happens. That's how most of what's on this site got made." },
+    { title: 'I finish what I start',
+      body: "I got turned down by six companies before three said yes. I'm used to things not working the first time and just keep going until they do." },
+    { title: "I'd rather ask than guess",
+      body: "When something behaves weird I'd rather dig until I know why than paper over it. It's slower, but I don't like leaving a thing I don't understand." },
   ],
   vi: [
-    { title: 'Học bằng cách làm',
-      body: "Cách mình hiểu nhanh nhất là tự dựng một bản thô. Phần lớn dự án của mình có mặt vì mình muốn xem thứ đó chạy ra sao, chứ không phải vì bị bắt làm." },
-    { title: 'Làm cho tử tế',
-      body: "Mình thà làm xong một thứ đúng và sạch còn hơn ba thứ nửa vời. Ví dụ trong issue tracker, việc cô lập tenant nằm gọn một chỗ để không thể quên." },
-    { title: 'Truy tới cùng',
-      body: "Khi thứ gì hỏng hay chạy lạ, mình muốn biết vì sao, không chỉ làm nó ngừng lạ. Phần lớn thứ mình học được đến từ việc truy một ca như vậy tới cùng." },
+    { title: 'Mình học bằng cách làm',
+      body: "Đọc tài liệu không vào đầu mình mấy. Phải tự tay dựng, làm hỏng, rồi xem chuyện gì xảy ra. Phần lớn thứ trên trang này ra đời kiểu đó." },
+    { title: 'Bắt đầu thì làm cho xong',
+      body: "Mình bị sáu công ty từ chối trước khi có ba chỗ nhận. Quen với việc lần đầu không chạy rồi, cứ làm tới khi được thì thôi." },
+    { title: 'Thà hỏi còn hơn đoán',
+      body: "Thứ gì chạy lạ là mình đào cho ra tại sao chứ không lấp cho qua. Chậm hơn, nhưng mình không thích để lại một cái mình chưa hiểu." },
   ],
 };
 
 /* Now — neutral, present tense. */
 export const NOW = {
-  en: 'Studying more than I write, keeping the issue tracker tidy, and looking for a summer internship.',
-  vi: 'Học nhiều hơn viết, giữ cho issue tracker gọn gàng, và tìm một kỳ thực tập hè.',
+  en: 'Interning, reading a lot more than I write these days, and still looking for the next thing.',
+  vi: 'Đang thực tập, dạo này đọc nhiều hơn viết, và vẫn đang tìm chỗ tiếp theo.',
 };
 
 /* Timeline — real milestones. Years are approximate by design.
@@ -157,16 +157,16 @@ export const PROJECTS = [
     },
     detail: {
       en: [
-        { h: 'The core requirement', p: 'Many organizations share one app, but no one may ever see another tenant’s issues. That single rule shapes the entire design.' },
-        { h: 'Where isolation lives', p: 'Tenant isolation lives in the data layer, not in each route: a base repository forces every query to filter by tenant_id, so a developer cannot forget it by writing a normal-looking query. Pushing the rule down to one place is the difference between "usually safe" and "safe".' },
-        { h: 'The rest of the system', p: 'On top: session auth, admin / member roles, CSRF protection on the forms, rate limits on login and writes, and email on issue changes. Routes stay thin — repositories talk to the DB, services hold the logic, schemas validate input. Alembic owns the schema; the whole thing runs under Docker with Postgres.' },
-        { h: 'Testing', p: 'Of the 20 tests, the ones I care about most are not the CRUD ones — they are the ones that log in as tenant A and assert tenant B’s data is invisible. That is the property that actually matters here.' },
+        { h: 'The problem', p: 'Several organizations use the same app, and none of them should ever see another one\'s issues. Everything else was built around keeping that true.' },
+        { h: 'How I kept tenants apart', p: 'Instead of remembering to filter every query by the org, I put that filter in one place (a base repository) that every query has to go through. So even if I get lazy later and write a normal-looking query, it still can\'t leak another org\'s data.' },
+        { h: 'The rest of it', p: 'Login with sessions, admin/member roles, CSRF on the forms, rate limits on login and writes, and an email when an issue changes. Routes stay thin: repositories talk to the DB, services hold the logic, schemas check the input. Runs under Docker with Postgres, schema handled by Alembic.' },
+        { h: 'Tests', p: '20 tests. The CRUD ones are fine, but the one I actually cared about logs in as org A and checks it genuinely can\'t see org B\'s data. If that ever fails, the whole point of the project is gone.' },
       ],
       vi: [
-        { h: 'Yêu cầu cốt lõi', p: 'Nhiều tổ chức dùng chung một app, nhưng không ai được phép thấy issue của tenant khác. Đúng một luật đó định hình toàn bộ thiết kế.' },
-        { h: 'Cô lập nằm ở đâu', p: 'Việc cô lập tenant nằm ở tầng dữ liệu, không phải ở từng route: một base repository ép mọi query phải lọc theo tenant_id, để lập trình viên không thể quên bằng cách viết một query trông bình thường. Đẩy luật xuống một chỗ duy nhất chính là khác biệt giữa "thường thì an toàn" và "an toàn".' },
-        { h: 'Phần còn lại của hệ thống', p: 'Phía trên: session auth, vai trò admin / member, bảo vệ CSRF ở form, giới hạn tốc độ ở login và ghi, gửi email khi issue đổi. Route giữ mỏng — repository nói chuyện với DB, service giữ logic, schema validate đầu vào. Alembic quản lý schema; toàn bộ chạy được dưới Docker với Postgres.' },
-        { h: 'Kiểm thử', p: 'Trong 20 test, bộ mình quan tâm nhất không phải mấy test CRUD — mà là test đăng nhập bằng tenant A rồi khẳng định dữ liệu tenant B vô hình. Đó mới là tính chất thật sự quan trọng ở đây.' },
+        { h: 'Bài toán', p: 'Nhiều tổ chức dùng chung một app, và không ai được thấy issue của tổ chức khác. Mọi thứ còn lại mình xây xoay quanh việc giữ điều đó đúng.' },
+        { h: 'Cách mình tách các tổ chức', p: 'Thay vì phải nhớ lọc theo tổ chức ở mỗi query, mình gom cái lọc đó vào một chỗ (một base repository) mà mọi query đều phải đi qua. Nên kể cả sau này mình có lười viết một query trông bình thường, nó vẫn không rò được dữ liệu tổ chức khác.' },
+        { h: 'Phần còn lại', p: 'Đăng nhập bằng session, vai trò admin/member, CSRF ở form, giới hạn tốc độ ở login và ghi, gửi email khi issue đổi. Route giữ mỏng: repository nói với DB, service giữ logic, schema kiểm đầu vào. Chạy dưới Docker với Postgres, schema do Alembic lo.' },
+        { h: 'Test', p: '20 test. Mấy test CRUD thì ổn, nhưng cái mình thật sự để tâm là test đăng nhập bằng tổ chức A rồi kiểm nó chắc chắn không thấy được dữ liệu tổ chức B. Cái đó mà sai thì cả project mất ý nghĩa.' },
       ],
     },
   },
