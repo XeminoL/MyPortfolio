@@ -24,8 +24,8 @@ export const PROFILE = {
     vi: ['những thứ chạy được', 'một backend multi-tenant', 'một trợ lý tài liệu trên AWS', 'một hệ thống bãi xe thông minh'],
   },
   tagline: {
-    en: "Computer Engineering student at HCMUT. I've built a bit of everything so far, and I usually learn a thing by just building it.",
-    vi: "Sinh viên Kỹ thuật Máy tính ở Bách Khoa. Tới giờ mình làm qua khá nhiều thứ, và thường thì cứ bắt tay làm là hiểu.",
+    en: "Computer Engineering student at HCMUT. I build a bit of everything and learn it by building it.",
+    vi: "Sinh viên Kỹ thuật Máy tính ở Bách Khoa. Mình làm đủ thứ, và học bằng cách bắt tay làm.",
   },
 };
 
@@ -57,14 +57,14 @@ export const FACTS = [
 /* About — three short paragraphs. Plain and factual. */
 export const ABOUT = {
   en: [
-    "I'm a Computer Engineering student at HCMUT. Over the last three years I've touched a lot of different things: mạch and Verilog, microcontrollers, an OS assignment, some networking, a bit of ML and stats, and web backends. I don't have one thing I call my specialty yet, and I'm okay with that for now.",
-    "Most of it started as coursework. A few I kept going on after the deadline because I wanted them to actually work, not just pass. That's usually how I end up learning something properly.",
-    "I'm decent at picking up whatever a project needs and getting it working. If you hand me something I haven't done before, I'll figure it out.",
+    "Computer Engineering student at HCMUT. I've worked across logic design, microcontrollers, an OS, networking, and web backends. No single specialty yet, and that's fine for now.",
+    "Most of it started as coursework. The ones I liked, I kept building after the deadline until they actually worked. That's usually when I learn something for real.",
+    "I pick up whatever a project needs and get it running.",
   ],
   vi: [
-    "Mình là sinh viên Kỹ thuật Máy tính ở Bách Khoa. Ba năm qua mình làm qua khá nhiều thứ: mạch với Verilog, vi điều khiển, một đồ án hệ điều hành, ít mạng máy tính, chút ML và thống kê, với backend web. Mình chưa có mảng nào gọi là chuyên, và giờ mình thấy vậy cũng ổn.",
-    "Phần lớn bắt đầu từ bài tập môn. Vài cái mình làm tiếp sau khi hết hạn, vì muốn nó chạy thật chứ không chỉ qua môn. Thường thì đó là lúc mình hiểu một thứ tới nơi.",
-    "Mình bắt nhịp được với thứ dự án cần và làm cho nó chạy. Đưa mình cái gì chưa làm bao giờ, mình cũng mò ra.",
+    "Sinh viên Kỹ thuật Máy tính ở Bách Khoa. Mình làm qua thiết kế luận lý, vi điều khiển, hệ điều hành, mạng, và backend web. Chưa có mảng chuyên nào, giờ vậy cũng ổn.",
+    "Phần lớn bắt đầu từ bài tập môn. Cái nào thích thì mình làm tiếp sau hạn nộp cho tới khi nó chạy thật. Đó thường là lúc mình học được thứ gì đó tới nơi.",
+    "Dự án cần gì mình bắt nhịp cái đó và làm cho chạy.",
   ],
 };
 
@@ -72,26 +72,26 @@ export const ABOUT = {
 export const APPROACH = {
   en: [
     { title: 'I learn by doing',
-      body: "Reading docs doesn't stick with me. I have to actually build the thing, break it, and see what happens. That's how most of what's on this site got made." },
+      body: "Docs don't stick with me. I build the thing, break it, and figure it out from there." },
     { title: 'I finish what I start',
-      body: "I got turned down by six companies before three said yes. I'm used to things not working the first time and just keep going until they do." },
+      body: "Six companies turned me down before three said yes. I'm used to it not working the first time." },
     { title: "I'd rather ask than guess",
-      body: "When something behaves weird I'd rather dig until I know why than paper over it. It's slower, but I don't like leaving a thing I don't understand." },
+      body: "When something's weird I dig until I know why. Slower, but I don't like leaving things I don't understand." },
   ],
   vi: [
     { title: 'Mình học bằng cách làm',
-      body: "Đọc tài liệu không vào đầu mình mấy. Phải tự tay dựng, làm hỏng, rồi xem chuyện gì xảy ra. Phần lớn thứ trên trang này ra đời kiểu đó." },
+      body: "Đọc tài liệu không vào đầu. Mình dựng, làm hỏng, rồi từ đó mò ra." },
     { title: 'Bắt đầu thì làm cho xong',
-      body: "Mình bị sáu công ty từ chối trước khi có ba chỗ nhận. Quen với việc lần đầu không chạy rồi, cứ làm tới khi được thì thôi." },
+      body: "Sáu công ty từ chối trước khi có ba chỗ nhận. Mình quen việc lần đầu không chạy rồi." },
     { title: 'Thà hỏi còn hơn đoán',
-      body: "Thứ gì chạy lạ là mình đào cho ra tại sao chứ không lấp cho qua. Chậm hơn, nhưng mình không thích để lại một cái mình chưa hiểu." },
+      body: "Thứ gì lạ là mình đào tới khi hiểu. Chậm hơn, nhưng mình không thích để lại cái mình chưa hiểu." },
   ],
 };
 
 /* Now — neutral, present tense. */
 export const NOW = {
-  en: 'Interning, reading a lot more than I write these days, and still looking for the next thing.',
-  vi: 'Đang thực tập, dạo này đọc nhiều hơn viết, và vẫn đang tìm chỗ tiếp theo.',
+  en: 'Interning, and reading more than I write these days.',
+  vi: 'Đang thực tập, dạo này đọc nhiều hơn viết.',
 };
 
 /* Timeline — real milestones. Years are approximate by design.
@@ -101,13 +101,13 @@ export const TIMELINE = {
     { year: '2023', text: 'Started Computer Engineering at HCMUT.' },
     { year: '2024', text: 'A lot of coursework across the map: logic design, microcontrollers, an OS, networking labs.' },
     { year: '2025', text: 'Built the multi-tenant issue tracker, a smart-parking system for the SE course, and a few other course projects.' },
-    { year: '2026', text: 'Interned at TKSolution, then AWS (First Cloud Journey), where I built InsightShare. Still looking for the next thing.' },
+    { year: '2026', text: 'Interned at TKSolution, then AWS (First Cloud Journey), where I built InsightShare.' },
   ],
   vi: [
     { year: '2023', text: 'Bắt đầu Kỹ thuật Máy tính tại ĐH Bách Khoa.' },
     { year: '2024', text: 'Nhiều bài tập môn trải khắp: thiết kế luận lý, vi điều khiển, hệ điều hành, lab mạng.' },
     { year: '2025', text: 'Làm issue tracker multi-tenant, một hệ thống bãi xe thông minh cho môn CNPM, và vài đồ án môn khác.' },
-    { year: '2026', text: 'Thực tập ở TKSolution, rồi AWS (First Cloud Journey), làm InsightShare ở đó. Vẫn đang tìm chỗ tiếp theo.' },
+    { year: '2026', text: 'Thực tập ở TKSolution, rồi AWS (First Cloud Journey), làm InsightShare ở đó.' },
   ],
 };
 
