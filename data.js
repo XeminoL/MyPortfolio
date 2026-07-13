@@ -305,6 +305,6 @@ export const UI = {
 
 /* boot log lines for the system intro */
 export const INTRO_BOOT = {
-  en: ['init display', 'mount /home/khang', 'load embedded core', 'link backend', 'spotify uplink', 'ready'],
-  vi: ['khởi tạo màn hình', 'gắn /home/khang', 'nạp lõi embedded', 'kết nối backend', 'liên kết spotify', 'sẵn sàng'],
+  en: ['mount /home/khang', 'link backend', 'ready'],
+  vi: ['gắn /home/khang', 'kết nối backend', 'sẵn sàng'],
 };

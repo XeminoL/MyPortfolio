@@ -327,8 +327,13 @@ const particles = (() => {
   }
 
   let last = 0;
+  let lastPaint = 0;
   function draw(now) {
     if (!cv || !ctx) { running = false; return; }
+    // cap this background at ~30fps — the cursor only blinks twice a second, so
+    // painting text 60×/s just burns the laptop GPU and makes the page jitter
+    if (now - lastPaint < 32) { raf = requestAnimationFrame(draw); return; }
+    lastPaint = now;
     const w = cv.clientWidth; const h = cv.clientHeight;
     const g = accent(); const d = dim();
     ctx.clearRect(0, 0, w, h);
@@ -872,116 +877,88 @@ const intro = (() => {
     const accent = () => getComputedStyle(document.body).getPropertyValue('--green').trim() || '#7ee787';
     const cyan = () => getComputedStyle(document.body).getPropertyValue('--cyan').trim() || '#56d4dd';
     const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    // phones render this HUD slower, so keep the intro short there; full length on desktop
-    const isPhone = matchMedia('(pointer: coarse)').matches || innerWidth < 700;
-    const R = () => Math.min(W, H) * 0.26;
+    const R = () => Math.min(W, H) * 0.2;
     const lines = INTRO_BOOT[state.lang];
     const logEl = $('#introLog');
     let shown = 0;
-    const DUR = reduced ? 350 : (isPhone ? 1400 : 2800);
+    // one second on every device: a single decisive charge, not a long HUD dance
+    const DUR = reduced ? 300 : 1000;
     const start = performance.now();
+    const ease = (t) => 1 - Math.pow(1 - t, 3); // easeOutCubic — fast out, soft stop
 
-    function ring(r, lw, col, alpha, dash) {
-      ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2);
-      ctx.lineWidth = lw; ctx.strokeStyle = col; ctx.globalAlpha = alpha;
-      if (dash) ctx.setLineDash(dash); else ctx.setLineDash([]);
-      ctx.stroke(); ctx.globalAlpha = 1; ctx.setLineDash([]);
-    }
     function arcSeg(r, lw, col, a0, a1) {
       ctx.beginPath(); ctx.arc(cx, cy, r, a0, a1);
       ctx.lineWidth = lw; ctx.strokeStyle = col; ctx.lineCap = 'round'; ctx.stroke(); ctx.lineCap = 'butt';
     }
-    function hexNum(name, val, x, y, align) {
-      ctx.fillStyle = name; ctx.globalAlpha = 0.55; ctx.textAlign = align;
-      ctx.font = '11px JetBrains Mono, monospace'; ctx.fillText(val, x, y); ctx.globalAlpha = 1;
-    }
 
     function frame(now) {
-      const k = Math.min(1, (now - start) / DUR);
-      const tt = (now - start) / 1000;
+      const kRaw = Math.min(1, (now - start) / DUR);
+      const k = ease(kRaw);
       const g = accent(); const c = cyan(); const base = R();
       ctx.clearRect(0, 0, W, H);
 
-      // grid
-      ctx.strokeStyle = 'rgba(126,231,135,0.05)'; ctx.lineWidth = 1;
-      for (let x = (cx % 46); x < W; x += 46) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke(); }
-      for (let y = (cy % 46); y < H; y += 46) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
+      // thin static frame ring
+      ctx.beginPath(); ctx.arc(cx, cy, base * 1.32, 0, Math.PI * 2);
+      ctx.lineWidth = 1; ctx.strokeStyle = g; ctx.globalAlpha = 0.16; ctx.stroke(); ctx.globalAlpha = 1;
 
-      // corner telemetry (system feel) — left top, right kept clear of SKIP
-      hexNum(g, `0x${Math.floor(k * 65535).toString(16).padStart(4, '0').toUpperCase()}`, 24, 28, 'left');
-      hexNum(g, `t+${tt.toFixed(2)}s`, 24, 44, 'left');
-      hexNum(c, `CPU ${Math.round(20 + k * 70)}%`, W - 24, 72, 'right');
-      hexNum(c, `MEM ${Math.round(30 + k * 50)}%`, W - 24, 88, 'right');
-
-      // outer dotted ring
-      ctx.save(); ctx.translate(cx, cy); ctx.rotate(tt * 0.25); ctx.translate(-cx, -cy);
-      ring(base * 1.42, 1, g, 0.22, [2, 12]); ctx.restore();
-
-      // tick ring
-      ctx.save(); ctx.translate(cx, cy); ctx.rotate(-tt * 0.5);
-      for (let i = 0; i < 60; i += 1) {
-        const a = (i / 60) * Math.PI * 2; const long = i % 5 === 0;
-        const r0 = base * 1.16; const r1 = base * (long ? 1.26 : 1.21);
-        ctx.beginPath(); ctx.moveTo(Math.cos(a) * r0, Math.sin(a) * r0); ctx.lineTo(Math.cos(a) * r1, Math.sin(a) * r1);
-        ctx.strokeStyle = g; ctx.globalAlpha = long ? 0.6 : 0.28; ctx.lineWidth = long ? 2 : 1; ctx.stroke();
+      // ticks that fill in with progress (a quarter turn from top, both ways)
+      for (let i = 0; i < 48; i += 1) {
+        const on = i / 48 <= kRaw;
+        const a = -Math.PI / 2 + (i / 48) * Math.PI * 2; const long = i % 4 === 0;
+        const r0 = base * 1.12; const r1 = base * (long ? 1.24 : 1.18);
+        ctx.beginPath();
+        ctx.moveTo(cx + Math.cos(a) * r0, cy + Math.sin(a) * r0);
+        ctx.lineTo(cx + Math.cos(a) * r1, cy + Math.sin(a) * r1);
+        ctx.strokeStyle = on ? c : g; ctx.globalAlpha = on ? 0.85 : 0.18;
+        ctx.lineWidth = long ? 2 : 1; ctx.stroke();
       }
-      ctx.globalAlpha = 1; ctx.restore();
-
-      // reticle arcs
-      ctx.save(); ctx.translate(cx, cy); ctx.rotate(tt * 0.9); ctx.translate(-cx, -cy);
-      arcSeg(base * 1.05, 2, c, 0.2 * Math.PI, 0.7 * Math.PI); arcSeg(base * 1.05, 2, c, 1.2 * Math.PI, 1.7 * Math.PI); ctx.restore();
-      ctx.save(); ctx.translate(cx, cy); ctx.rotate(-tt * 1.3); ctx.translate(-cx, -cy);
-      arcSeg(base * 0.92, 2, g, -0.15 * Math.PI, 0.35 * Math.PI); arcSeg(base * 0.92, 2, g, 0.85 * Math.PI, 1.35 * Math.PI); ctx.restore();
-
-      // charge ring
-      ctx.globalAlpha = 0.12; ring(base * 0.78, 6, g, 0.12); ctx.globalAlpha = 1;
-      arcSeg(base * 0.78, 6, g, -Math.PI / 2, -Math.PI / 2 + k * Math.PI * 2);
-
-      // crosshair
-      ctx.strokeStyle = g; ctx.globalAlpha = 0.4; ctx.lineWidth = 1;
-      [[-1, 0], [1, 0], [0, -1], [0, 1]].forEach(([dx, dy]) => {
-        ctx.beginPath(); ctx.moveTo(cx + dx * base * 0.5, cy + dy * base * 0.5); ctx.lineTo(cx + dx * base * 0.68, cy + dy * base * 0.68); ctx.stroke();
-      });
       ctx.globalAlpha = 1;
 
-      // core glow
-      const cg = ctx.createRadialGradient(cx, cy, 0, cx, cy, base * 0.5);
-      const pulse = 0.5 + 0.5 * Math.sin(tt * 4);
-      cg.addColorStop(0, g); cg.addColorStop(0.25, `${g}cc`); cg.addColorStop(1, 'transparent');
-      ctx.globalAlpha = 0.5 + 0.4 * pulse; ctx.fillStyle = cg;
-      ctx.beginPath(); ctx.arc(cx, cy, base * 0.5, 0, Math.PI * 2); ctx.fill(); ctx.globalAlpha = 1;
+      // charge ring — the one thing your eye follows, 0 → full in a second
+      ctx.beginPath(); ctx.arc(cx, cy, base * 0.86, 0, Math.PI * 2);
+      ctx.lineWidth = 5; ctx.strokeStyle = g; ctx.globalAlpha = 0.1; ctx.stroke(); ctx.globalAlpha = 1;
+      arcSeg(base * 0.86, 5, g, -Math.PI / 2, -Math.PI / 2 + k * Math.PI * 2);
 
-      // readout
-      ctx.fillStyle = g; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-      ctx.font = `700 ${Math.round(base * 0.22)}px 'JetBrains Mono', monospace`;
-      ctx.fillText(`${Math.round(k * 100)}`, cx, cy - base * 0.02);
-      ctx.font = `${Math.round(base * 0.08)}px 'JetBrains Mono', monospace`;
-      ctx.globalAlpha = 0.7; ctx.fillText('SYSTEM ONLINE', cx, cy + base * 0.2); ctx.globalAlpha = 1;
+      // soft core that swells with the charge, no per-frame pulse jitter
+      const cg = ctx.createRadialGradient(cx, cy, 0, cx, cy, base * 0.7);
+      cg.addColorStop(0, `${g}`); cg.addColorStop(0.3, `${g}66`); cg.addColorStop(1, 'transparent');
+      ctx.globalAlpha = 0.28 + 0.32 * k; ctx.fillStyle = cg;
+      ctx.beginPath(); ctx.arc(cx, cy, base * 0.7, 0, Math.PI * 2); ctx.fill(); ctx.globalAlpha = 1;
 
-      // radar sweep
-      ctx.save(); ctx.translate(cx, cy); ctx.rotate(tt * 2.2);
-      const wedge = ctx.createLinearGradient(0, 0, base * 1.3, 0);
-      wedge.addColorStop(0, `${g}00`); wedge.addColorStop(1, `${g}33`);
-      ctx.fillStyle = wedge; ctx.beginPath(); ctx.moveTo(0, 0); ctx.arc(0, 0, base * 1.3, -0.18, 0); ctx.closePath(); ctx.fill();
-      ctx.restore();
+      // readout: percent while charging, then the name lands
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      if (kRaw < 0.82) {
+        ctx.fillStyle = g;
+        ctx.font = `700 ${Math.round(base * 0.4)}px 'JetBrains Mono', monospace`;
+        ctx.fillText(`${Math.round(kRaw * 100)}`, cx, cy);
+      } else {
+        const t = (kRaw - 0.82) / 0.18; // 0→1 reveal
+        ctx.globalAlpha = t;
+        ctx.fillStyle = c;
+        ctx.font = `700 ${Math.round(base * 0.26)}px 'JetBrains Mono', monospace`;
+        ctx.fillText('KHANG', cx, cy - base * 0.06);
+        ctx.fillStyle = g; ctx.globalAlpha = t * 0.75;
+        ctx.font = `${Math.round(base * 0.1)}px 'JetBrains Mono', monospace`;
+        ctx.fillText('SYSTEM ONLINE', cx, cy + base * 0.24);
+        ctx.globalAlpha = 1;
+      }
 
-      // boot log
-      const want = Math.floor(k * lines.length);
+      // boot log, revealed across the run
+      const want = Math.floor(kRaw * lines.length);
       while (shown < want && shown < lines.length) {
         const li = document.createElement('div');
         li.className = 'log-line'; li.innerHTML = `<span class="log-ok">▸</span> ${esc(lines[shown])}`;
         logEl.appendChild(li); requestAnimationFrame(() => li.classList.add('in')); shown += 1;
       }
 
-      if (k < 1) { raf = requestAnimationFrame(frame); }
+      if (kRaw < 1) { raf = requestAnimationFrame(frame); }
       else {
         while (shown < lines.length) {
           const li = document.createElement('div');
           li.className = 'log-line in'; li.innerHTML = `<span class="log-ok">▸</span> ${esc(lines[shown])}`;
           logEl.appendChild(li); shown += 1;
         }
-        raf = requestAnimationFrame(frame);
-        setTimeout(finish, reduced ? 150 : 600);
+        setTimeout(finish, reduced ? 100 : 240);
       }
     }
     raf = requestAnimationFrame(frame);
