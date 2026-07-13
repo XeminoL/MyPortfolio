@@ -368,24 +368,30 @@ const particles = (() => {
       rendered[rendered.length - 1] = { prompt: true, text: partial, typing: true };
     }
 
-    // sit in the empty right half on wide screens (clear of the hero text);
-    // fall back to the left margin on narrow screens
-    const x = w > 900 ? w * 0.56 : 28;
-    const yTop = Math.max(40, h / 2 - (rendered.length * ROW) / 2);
+    // live in the empty bottom-right corner, well below and right of the hero
+    // text and CTAs. On narrow screens it drops to the bottom-left margin.
+    const wide = w > 900;
+    const nRows = rendered.length;
+    const blockH = nRows * ROW;
+    const x = wide ? w * 0.6 : 24;
+    // anchor to the lower area, but leave room for the "// extras" panel that
+    // sits in the bottom-right corner on wide screens
+    const yBottom = h - (wide ? 104 : 62);
+    const yTop = wide ? Math.max(h * 0.5, yBottom - blockH) : Math.max(40, yBottom - blockH);
     rendered.forEach((ln, i) => {
       const y = yTop + i * ROW;
-      const fade = i < 3 ? 0.35 + i * 0.22 : 1;    // top lines fade as they scroll off
+      const fade = i < 3 ? 0.4 + i * 0.2 : 1;    // top lines fade as they scroll off
       if (ln.prompt) {
-        ctx.globalAlpha = 0.24 * fade; ctx.fillStyle = g;
+        ctx.globalAlpha = 0.34 * fade; ctx.fillStyle = g;
         ctx.fillText('$', x, y);
-        ctx.globalAlpha = 0.19 * fade; ctx.fillStyle = d;
+        ctx.globalAlpha = 0.28 * fade; ctx.fillStyle = d;
         ctx.fillText(ln.text, x + 18, y);
         if (ln.typing && Math.floor(now / 500) % 2 === 0) {
-          ctx.globalAlpha = 0.24 * fade; ctx.fillStyle = g;
+          ctx.globalAlpha = 0.34 * fade; ctx.fillStyle = g;
           ctx.fillText('▊', x + 18 + ctx.measureText(ln.text).width + 2, y);
         }
       } else {
-        ctx.globalAlpha = 0.16 * fade; ctx.fillStyle = d;
+        ctx.globalAlpha = 0.24 * fade; ctx.fillStyle = d;
         ctx.fillText(ln.text, x + 18, y);
       }
     });
@@ -851,13 +857,11 @@ const intro = (() => {
   function run() {
     const el = $('#intro');
     if (!el) return;
-    // skip via ?intro=0, or if already shown once this browser session
+    // plays every load (reload / reopen always shows it); only ?intro=0 skips it, for dev
     let skip = false;
     try {
-      skip = new URLSearchParams(location.search).get('intro') === '0'
-        || sessionStorage.getItem('introSeen') === '1';
-      sessionStorage.setItem('introSeen', '1');
-    } catch { /* sessionStorage may be blocked; just show it */ }
+      skip = new URLSearchParams(location.search).get('intro') === '0';
+    } catch { /* just show it */ }
     if (skip) { el.remove(); document.body.classList.remove('intro-lock'); return; }
     done = false;
     document.body.classList.add('intro-lock');
@@ -868,7 +872,9 @@ const intro = (() => {
     const ctx = cv.getContext('2d');
     let W, H, cx, cy;
     function size() {
-      const dpr = Math.min(2, devicePixelRatio || 1);
+      // cap at 1.5 — a full-screen 2x canvas repainted every frame is why the
+      // intro stuttered on retina laptops; 1.5 is still crisp
+      const dpr = Math.min(1.5, devicePixelRatio || 1);
       W = innerWidth; H = innerHeight;
       cv.width = W * dpr; cv.height = H * dpr; cv.style.width = `${W}px`; cv.style.height = `${H}px`;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0); cx = W / 2; cy = H / 2;
