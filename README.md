@@ -51,7 +51,7 @@ Open `index.html` in any browser — it is fully self-contained, no server neede
 After editing `data.js`, `app.js`, `style.css` or `index.src.html`, rebuild:
 
 ```bash
-node build.js     # regenerates index.html
+node build.js     
 ```
 
 Tip: append `?intro=0` to the URL to skip the boot intro while developing.
