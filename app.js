@@ -201,8 +201,8 @@ function renderProjectPage(id) {
       ${flowDiagram(p)}
       <div class="pp-story">${blocks}</div>
       <div class="pp-foot">
-        <a class="pp-gh tlink" href="${esc(PROFILE.githubUrl)}" target="_blank" rel="noopener">github.com/${esc(PROFILE.github)} <span aria-hidden="true">→</span></a>
-        <span class="pp-note">${esc(t().repoNote)}</span>
+        ${p.repo ? `<a class="pp-gh tlink" href="${esc(p.repo)}" target="_blank" rel="noopener">${esc(t().viewCode)} <span aria-hidden="true">→</span></a>` : ''}
+        ${p.demo ? `<a class="pp-gh tlink" href="${esc(p.demo)}" target="_blank" rel="noopener">${esc(t().liveDemo)} <span aria-hidden="true">→</span></a>` : ''}
       </div>
     </div>`;
   $('#ppBack').addEventListener('click', () => { location.hash = '#projects'; });

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Dang Thai Khang — Computer Engineering student at HCMUT. I build things, take them apart to understand them, and put them back together properly.">
+  <meta name="description" content="Dang Thai Khang — Computer Engineering student at HCMUT. I have built a bit of everything, and I usually learn a thing by just building it.">
   <meta name="author" content="Dang Thai Khang">
   <meta name="theme-color" content="#0a0e14">
   <meta name="color-scheme" content="dark">
@@ -11,7 +11,7 @@
 
   <!-- social cards -->
   <meta property="og:title" content="Dang Thai Khang — Computer Engineering @ HCMUT">
-  <meta property="og:description" content="Computer Engineering student at HCMUT. I build things and take them apart to understand them. Built from scratch, no frameworks.">
+  <meta property="og:description" content="Computer Engineering student at HCMUT. Built a bit of everything so far. This site is from scratch, no frameworks.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://xeminol.github.io/MyPortfolio/">
   <meta property="og:image" content="https://xeminol.github.io/MyPortfolio/og.png">
@@ -19,7 +19,7 @@
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Dang Thai Khang — Computer Engineering @ HCMUT">
-  <meta name="twitter:description" content="Computer Engineering student at HCMUT. I build things and take them apart to understand them. Built from scratch, no frameworks.">
+  <meta name="twitter:description" content="Computer Engineering student at HCMUT. Built a bit of everything so far. This site is from scratch, no frameworks.">
   <meta name="twitter:image" content="https://xeminol.github.io/MyPortfolio/og.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -600,8 +600,8 @@ const PROFILE = {
   role: { en: 'Computer Engineering @ HCMUT', vi: 'Kỹ thuật Máy tính @ Bách Khoa' },
   // titles cycled by the hero typing effect — concrete things actually built
   roles: {
-    en: ['things that work', 'a CPU in Verilog', 'a multi-tenant backend', 'an IoT system'],
-    vi: ['những thứ chạy được', 'một CPU bằng Verilog', 'một backend multi-tenant', 'một hệ thống IoT'],
+    en: ['things that work', 'a multi-tenant backend', 'a document assistant on AWS', 'a smart-parking system'],
+    vi: ['những thứ chạy được', 'một backend multi-tenant', 'một trợ lý tài liệu trên AWS', 'một hệ thống bãi xe thông minh'],
   },
   tagline: {
     en: "Computer Engineering student at HCMUT. I've built a bit of everything so far, and I usually learn a thing by just building it.",
@@ -679,15 +679,15 @@ const NOW = {
 const TIMELINE = {
   en: [
     { year: '2023', text: 'Started Computer Engineering at HCMUT.' },
-    { year: '2024', text: 'Digital-logic year: a small RISC CPU and an FPGA image accelerator, both in Verilog.' },
-    { year: '2025', text: 'Built an IoT farm, an HTTP server on raw sockets, the multi-tenant issue tracker, and some modelling and stats work.' },
-    { year: '2026', text: 'Looking for a summer internship.' },
+    { year: '2024', text: 'A lot of coursework across the map: logic design, microcontrollers, an OS, networking labs.' },
+    { year: '2025', text: 'Built the multi-tenant issue tracker, a smart-parking system for the SE course, and a few other course projects.' },
+    { year: '2026', text: 'Interned at TKSolution, then AWS (First Cloud Journey), where I built InsightShare. Still looking for the next thing.' },
   ],
   vi: [
     { year: '2023', text: 'Bắt đầu Kỹ thuật Máy tính tại ĐH Bách Khoa.' },
-    { year: '2024', text: 'Năm học luận lý số: một CPU RISC nhỏ và một bộ tăng tốc ảnh FPGA, đều bằng Verilog.' },
-    { year: '2025', text: 'Làm một hệ thống IoT, một HTTP server viết trên socket thô, issue tracker multi-tenant, cùng vài bài mô hình hoá và thống kê.' },
-    { year: '2026', text: 'Đang tìm một kỳ thực tập hè.' },
+    { year: '2024', text: 'Nhiều bài tập môn trải khắp: thiết kế luận lý, vi điều khiển, hệ điều hành, lab mạng.' },
+    { year: '2025', text: 'Làm issue tracker multi-tenant, một hệ thống bãi xe thông minh cho môn CNPM, và vài đồ án môn khác.' },
+    { year: '2026', text: 'Thực tập ở TKSolution, rồi AWS (First Cloud Journey), làm InsightShare ở đó. Vẫn đang tìm chỗ tiếp theo.' },
   ],
 };
 
@@ -695,20 +695,14 @@ const TIMELINE = {
    mark (no emoji, no external icon set). */
 const TECH = [
   { group: { en: 'Languages', vi: 'Ngôn ngữ' }, items: [
-    { name: 'C / C++', glyph: 'C' }, { name: 'Python', glyph: 'py' }, { name: 'Verilog', glyph: 'V' },
-    { name: 'C# / .NET', glyph: 'C#' }, { name: 'JavaScript', glyph: 'js' }, { name: 'R', glyph: 'R' },
-  ]},
-  { group: { en: 'Hardware', vi: 'Phần cứng' }, items: [
-    { name: 'ESP32', glyph: '32' }, { name: 'STM32', glyph: 'ST' }, { name: 'FPGA', glyph: 'FP' },
-    { name: 'Vivado', glyph: 'Vv' }, { name: 'UART · I2C', glyph: 'io' },
+    { name: 'Python', glyph: 'py' }, { name: 'JavaScript', glyph: 'js' }, { name: 'HTML / CSS', glyph: '<>' },
   ]},
   { group: { en: 'Backend & cloud', vi: 'Backend & cloud' }, items: [
-    { name: 'Flask', glyph: 'Fl' }, { name: 'SQLite', glyph: 'sql' }, { name: 'MQTT', glyph: 'mq' },
-    { name: 'Docker', glyph: 'dk' }, { name: 'Linux', glyph: 'tux' }, { name: 'AWS', glyph: 'aws' },
+    { name: 'Flask', glyph: 'Fl' }, { name: 'PostgreSQL', glyph: 'pg' }, { name: 'AWS', glyph: 'aws' },
+    { name: 'Docker', glyph: 'dk' }, { name: 'MQTT', glyph: 'mq' }, { name: 'Linux', glyph: 'tux' },
   ]},
-  { group: { en: 'Data & tooling', vi: 'Dữ liệu & công cụ' }, items: [
-    { name: 'Git', glyph: 'git' }, { name: 'NumPy · Pandas', glyph: 'np' }, { name: 'OpenCV', glyph: 'cv' },
-    { name: 'pytest', glyph: 'pt' },
+  { group: { en: 'Tooling', vi: 'Công cụ' }, items: [
+    { name: 'Git', glyph: 'git' }, { name: 'pytest', glyph: 'pt' },
   ]},
 ];
 
@@ -723,6 +717,7 @@ const PROJECTS = [
     icon: 'SaaS',
     name: 'Issue Tracker',
     year: '2025',
+    repo: 'https://github.com/XeminoL/issue-tracker',
     meta: { en: 'Flask · multi-tenant', vi: 'Flask · multi-tenant' },
     role: { en: 'Solo · side project', vi: 'Cá nhân · dự án phụ' },
     blurb: {
@@ -750,6 +745,73 @@ const PROJECTS = [
       ],
     },
   },
+  {
+    id: 'insightshare',
+    icon: 'AWS',
+    name: 'InsightShare',
+    year: '2026',
+    repo: 'https://github.com/XeminoL/InsightShare',
+    demo: 'https://insightshare.dangthaikhang34.workers.dev/',
+    meta: { en: 'AWS · serverless', vi: 'AWS · serverless' },
+    role: { en: 'AWS FCAJ internship capstone', vi: 'Đồ án cuối kỳ thực tập AWS FCAJ' },
+    blurb: {
+      en: 'Upload a document, then search it and ask questions about it. Serverless, on AWS.',
+      vi: 'Tải một tài liệu lên, rồi tìm trong nó và hỏi về nó. Serverless, chạy trên AWS.',
+    },
+    tags: ['AWS', 'Lambda', 'Textract', 'Bedrock', 'DynamoDB'],
+    flow: ['Upload', 'S3 (presigned)', 'Lambda', 'Textract + Rekognition', 'DynamoDB', 'Search / Ask (Bedrock)'],
+    highlights: {
+      en: ['Extracts text (Textract) + labels (Rekognition), stores in DynamoDB', 'Search files by content, not filename', 'Ask a document questions, answered by Bedrock (Claude)', 'Files stay private in S3; browser only gets presigned URLs', 'Runs at about 1 USD/month at demo scale'],
+      vi: ['Rút text (Textract) + nhãn (Rekognition), lưu vào DynamoDB', 'Tìm file theo nội dung chứ không theo tên', 'Hỏi tài liệu bằng câu thường, Bedrock (Claude) trả lời', 'File nằm riêng trong S3; trình duyệt chỉ nhận URL ký tạm', 'Chạy khoảng 1 USD/tháng ở quy mô demo'],
+    },
+    detail: {
+      en: [
+        { h: 'What it is', p: 'The capstone for my AWS First Cloud Journey internship. You upload an image or PDF, and it turns the file into something you can actually search and ask about.' },
+        { h: 'How it flows', p: 'The frontend calls API Gateway, which routes to Python Lambdas. One Lambda runs Textract and Rekognition and writes the text and labels to DynamoDB. Another searches that stored content. Another sends your question to Bedrock (Claude) with the document text as context.' },
+        { h: 'Keeping files private', p: 'The original files never get a public URL. The browser uploads and downloads through short-lived presigned S3 URLs, so the bucket stays private the whole time.' },
+        { h: 'What I paid attention to', p: 'Least-privilege IAM (one role per Lambda, scoped to what it touches), CloudWatch logs across everything, and cost: it sits around a dollar a month because nothing runs when idle.' },
+      ],
+      vi: [
+        { h: 'Là gì', p: 'Đồ án cuối kỳ thực tập AWS First Cloud Journey của mình. Bạn tải lên một ảnh hoặc PDF, nó biến file đó thành thứ bạn thật sự tìm và hỏi được.' },
+        { h: 'Luồng chạy', p: 'Frontend gọi API Gateway, route sang các Lambda Python. Một Lambda chạy Textract và Rekognition rồi ghi text với nhãn vào DynamoDB. Một Lambda khác tìm trong đống nội dung đó. Một Lambda nữa gửi câu hỏi của bạn sang Bedrock (Claude) kèm nội dung tài liệu làm ngữ cảnh.' },
+        { h: 'Giữ file riêng tư', p: 'File gốc không bao giờ có URL công khai. Trình duyệt tải lên/xuống qua URL S3 ký tạm thời, nên bucket luôn ở chế độ riêng tư.' },
+        { h: 'Chỗ mình để tâm', p: 'IAM tối thiểu quyền (mỗi Lambda một role, chỉ chạm đúng thứ nó cần), log CloudWatch khắp nơi, và chi phí: nó tốn cỡ một đô một tháng vì lúc rảnh thì không chạy gì.' },
+      ],
+    },
+  },
+  {
+    id: 'smart-parking',
+    icon: 'IoT',
+    name: 'Smart Parking',
+    year: '2025',
+    repo: 'https://github.com/XeminoL/SmartParking_-IoT-SPMS-',
+    meta: { en: 'IoT · web · SE course', vi: 'IoT · web · môn CNPM' },
+    role: { en: 'Team · Software Engineering course', vi: 'Nhóm · môn Công nghệ Phần mềm' },
+    blurb: {
+      en: 'A parking system for the HCMUT campus, designed around the motorbike morning rush.',
+      vi: 'Hệ thống bãi xe cho khuôn viên Bách Khoa, thiết kế quanh giờ cao điểm xe máy buổi sáng.',
+    },
+    tags: ['JavaScript', 'MQTT', 'UML', 'HTML/CSS'],
+    flow: ['Plate camera + card tap', 'Sensors (MQTT)', 'Slot count', 'Gate signs', 'Operator / Admin view'],
+    highlights: {
+      en: ['Barrier-free main lane: camera reads the plate, rider taps while moving', 'Plate tied to card at entry; a mismatch at exit raises a theft alarm', 'Live free-slot count over MQTT; a silent sensor is marked unknown, not free', 'Roles for driver / operator / admin, each with their own view', 'Full requirements + UML + design docs (the course deliverable)'],
+      vi: ['Làn chính không barie: camera đọc biển số, người chạy quẹt thẻ khi đang di chuyển', 'Biển số gắn với thẻ lúc vào; lệch lúc ra thì báo động nghi trộm', 'Đếm chỗ trống trực tiếp qua MQTT; cảm biến im lặng bị đánh dấu không rõ, không tính là trống', 'Vai trò tài xế / vận hành / admin, mỗi bên một màn hình riêng', 'Đủ tài liệu yêu cầu + UML + thiết kế (sản phẩm nộp môn)'],
+    },
+    detail: {
+      en: [
+        { h: 'The real constraint', p: 'This was for the Software Engineering course, but the design comes from a real fact: campus parking here is mostly motorbikes and everyone shows up in a rush right before class. A normal barrier car-park model does not fit that.' },
+        { h: 'Barrier-free by design', p: 'The main lane has no barrier because a barrier is too slow for the morning rush. A camera reads the plate and the rider taps their card while moving. Barriers only stay on the smaller car lot.' },
+        { h: 'Knowing what is actually free', p: 'Sensors report slot changes over MQTT. The tricky part is faults: a sensor that goes quiet gets marked unknown and is not counted as free, so the gate signs never lie about space that is not there.' },
+        { h: 'What I actually built', p: 'A working demo (plain HTML/CSS/JS, no libraries, data in the code) that simulates cars coming and going, sensors dropping out, and theft alarms. Plus the full course docs: requirements, UML, and the design.' },
+      ],
+      vi: [
+        { h: 'Ràng buộc thật', p: 'Đây là bài môn Công nghệ Phần mềm, nhưng thiết kế đến từ một thực tế: bãi xe trong trường phần lớn là xe máy và ai cũng ùa tới sát giờ vào học. Mô hình bãi xe hơi có barie bình thường không hợp.' },
+        { h: 'Không barie theo chủ đích', p: 'Làn chính không có barie vì barie quá chậm cho giờ cao điểm. Camera đọc biển số, người chạy quẹt thẻ khi đang đi. Barie chỉ còn ở bãi ô tô nhỏ hơn.' },
+        { h: 'Biết chỗ nào thật sự trống', p: 'Cảm biến báo thay đổi chỗ qua MQTT. Chỗ khó là lỗi: một cảm biến im lặng bị đánh dấu không rõ và không tính là trống, để bảng ở cổng không bao giờ báo sai chỗ trống không có thật.' },
+        { h: 'Mình làm được gì', p: 'Một demo chạy được (HTML/CSS/JS thuần, không thư viện, dữ liệu viết trong code) mô phỏng xe ra vào, cảm biến rớt, và báo động trộm. Cùng đủ tài liệu môn: yêu cầu, UML, và thiết kế.' },
+      ],
+    },
+  },
 ];
 
 const UI = {
@@ -768,14 +830,15 @@ const UI = {
     stackLead: 'The tools I reach for, grouped by where they sit.',
     timelineLead: 'How I got here, roughly.',
     nowLabel: 'Now',
-    projectsLead: 'The one I keep coming back to. Open it for the details.',
+    projectsLead: 'A few things I have actually built. Open one for the details.',
     contactLead: 'The fastest ways to reach me.',
     readMore: 'Read more',
     backToProjects: 'Back',
     roleLabel: 'Role',
     flowLabel: 'How it flows',
     glanceLabel: 'At a glance',
-    repoNote: 'Source available on request.',
+    viewCode: 'View code',
+    liveDemo: 'Live demo',
     nowPlaying: 'Now playing',
     notPlaying: 'Not playing right now',
     onSpotify: 'on Spotify',
@@ -801,14 +864,15 @@ const UI = {
     stackLead: 'Mấy thứ mình hay dùng, nhóm theo chỗ nó nằm.',
     timelineLead: 'Mình tới đây như thế nào, đại khái vậy.',
     nowLabel: 'Hiện tại',
-    projectsLead: 'Dự án mình quay lại nhiều nhất. Mở ra để xem chi tiết.',
+    projectsLead: 'Vài thứ mình thật sự đã làm. Mở một cái để xem chi tiết.',
     contactLead: 'Cách nhanh nhất để liên hệ mình.',
     readMore: 'Xem thêm',
     backToProjects: 'Quay lại',
     roleLabel: 'Vai trò',
     flowLabel: 'Luồng hoạt động',
     glanceLabel: 'Tóm tắt nhanh',
-    repoNote: 'Có thể cung cấp mã nguồn khi cần.',
+    viewCode: 'Xem mã nguồn',
+    liveDemo: 'Bản chạy thử',
     nowPlaying: 'Đang nghe',
     notPlaying: 'Đang không nghe gì',
     onSpotify: 'trên Spotify',
@@ -1029,8 +1093,8 @@ function renderProjectPage(id) {
       ${flowDiagram(p)}
       <div class="pp-story">${blocks}</div>
       <div class="pp-foot">
-        <a class="pp-gh tlink" href="${esc(PROFILE.githubUrl)}" target="_blank" rel="noopener">github.com/${esc(PROFILE.github)} <span aria-hidden="true">→</span></a>
-        <span class="pp-note">${esc(t().repoNote)}</span>
+        ${p.repo ? `<a class="pp-gh tlink" href="${esc(p.repo)}" target="_blank" rel="noopener">${esc(t().viewCode)} <span aria-hidden="true">→</span></a>` : ''}
+        ${p.demo ? `<a class="pp-gh tlink" href="${esc(p.demo)}" target="_blank" rel="noopener">${esc(t().liveDemo)} <span aria-hidden="true">→</span></a>` : ''}
       </div>
     </div>`;
   $('#ppBack').addEventListener('click', () => { location.hash = '#projects'; });
