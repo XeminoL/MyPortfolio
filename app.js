@@ -1,6 +1,6 @@
 /* =====================================================================
    app.js — renders the portfolio from data.js and wires up scrolling,
-   the progress bar, hero typing + particles, a skills list, project
+   the progress bar, hero typing, a skills list, project
    detail pages (hash route), a live Spotify widget, a ⌘K palette, a
    live status strip, cursor spotlight, the system intro, and one egg.
    Mouse-driven; keyboard optional.
@@ -31,7 +31,6 @@ const pick = (o) => (o && typeof o === 'object' && state.lang in o ? o[state.lan
 function renderHero() {
   const p = PROFILE;
   $('#home').innerHTML = `
-    <canvas id="particles" aria-hidden="true"></canvas>
     <div class="wrap hero-inner">
       <p class="hero-kicker reveal">${esc(pick(p.role))}</p>
       <h1 class="hero-name reveal"><span class="grad">${esc(p.name)}</span></h1>
@@ -46,7 +45,6 @@ function renderHero() {
       <span>${t().scrollHint}</span><span class="arrow"></span>
     </a>`;
   typing.start(pick(p.roles));
-  particles.start();
 }
 
 function sectionHead(num, title, lead) {
@@ -287,145 +285,6 @@ const typing = (() => {
   return { start };
 })();
 
-/* =====================================================================
-   HERO BACKGROUND — a faint terminal running itself behind the hero.
-   Lines type out, print output, scroll up and fade. Ties the background to who
-   I am instead of the generic particle-network every portfolio uses. Very low
-   opacity so it never fights the hero text.
-   ===================================================================== */
-const particles = (() => {
-  let raf = null; let bound = false; let running = false; let visible = true;
-  let cv = null; let ctx = null;
-  const accent = () => getComputedStyle(document.body).getPropertyValue('--green').trim() || '#7ee787';
-  const dim = () => getComputedStyle(document.body).getPropertyValue('--text-faint').trim() || '#7d8aa0';
-
-  // a scripted session: [prompt+command, ...output lines]
-  const SCRIPT = [
-    ['whoami', 'khang'],
-    ['cat focus.txt', 'building things, learning as I go'],
-    ['ls projects/', 'issue-tracker  insightshare  smart-parking'],
-    ['git log --oneline -1', 'keep going until it works'],
-    ['uptime', 'still here, still building'],
-    ['echo $NEXT', '...'],
-  ];
-  const ROW = 26;          // px between lines
-  let lines = [];          // {text, prompt, born}
-  let ci = 0;              // current script index
-  let typed = 0;           // chars typed of current command
-  let phase = 'type';      // type | output | wait
-  let tPhase = 0;
-
-  function reset() { lines = []; ci = 0; typed = 0; phase = 'type'; tPhase = 0; }
-
-  function resize() {
-    if (!cv) return;
-    const r = cv.parentElement.getBoundingClientRect();
-    const dpr = Math.min(2, devicePixelRatio || 1);
-    cv.width = r.width * dpr; cv.height = r.height * dpr;
-    cv.style.width = `${r.width}px`; cv.style.height = `${r.height}px`;
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  }
-
-  let last = 0;
-  let lastPaint = 0;
-  function draw(now) {
-    if (!cv || !ctx) { running = false; return; }
-    // cap this background at ~30fps — the cursor only blinks twice a second, so
-    // painting text 60×/s just burns the laptop GPU and makes the page jitter
-    if (now - lastPaint < 32) { raf = requestAnimationFrame(draw); return; }
-    lastPaint = now;
-    const w = cv.clientWidth; const h = cv.clientHeight;
-    const g = accent(); const d = dim();
-    ctx.clearRect(0, 0, w, h);
-    ctx.font = '13px "JetBrains Mono", ui-monospace, monospace';
-    ctx.textBaseline = 'top';
-
-    // advance the scripted session on a slow, human cadence
-    const dt = now - (last || now); last = now;
-    tPhase += dt;
-    const cur = SCRIPT[ci % SCRIPT.length];
-    if (phase === 'type') {
-      if (tPhase > 55) { tPhase = 0; typed += 1; }
-      if (typed >= cur[0].length) { phase = 'output'; tPhase = 0; }
-    } else if (phase === 'output') {
-      if (tPhase > 260) { lines.push({ prompt: false, text: cur[1] }); phase = 'wait'; tPhase = 0; }
-    } else if (phase === 'wait') {
-      if (tPhase > 1400) {
-        ci += 1; typed = 0; phase = 'type'; tPhase = 0;
-        lines.push({ prompt: true, text: SCRIPT[ci % SCRIPT.length][0] });
-      }
-    }
-    if (lines.length === 0) lines.push({ prompt: true, text: cur[0] });
-
-    // keep only what fits, oldest scroll off the top
-    const maxRows = Math.floor(h / ROW) + 1;
-    while (lines.length > maxRows) lines.shift();
-
-    // the line currently being typed lives at the bottom
-    const rendered = lines.slice();
-    if (phase === 'type') {
-      const partial = cur[0].slice(0, typed);
-      rendered[rendered.length - 1] = { prompt: true, text: partial, typing: true };
-    }
-
-    // live in the empty bottom-right corner, well below and right of the hero
-    // text and CTAs. On narrow screens it drops to the bottom-left margin.
-    const wide = w > 900;
-    const nRows = rendered.length;
-    const blockH = nRows * ROW;
-    const x = wide ? w * 0.6 : 24;
-    // anchor to the lower area, but leave room for the "// extras" panel that
-    // sits in the bottom-right corner on wide screens
-    const yBottom = h - (wide ? 104 : 62);
-    const yTop = wide ? Math.max(h * 0.5, yBottom - blockH) : Math.max(40, yBottom - blockH);
-    rendered.forEach((ln, i) => {
-      const y = yTop + i * ROW;
-      const fade = i < 3 ? 0.4 + i * 0.2 : 1;    // top lines fade as they scroll off
-      if (ln.prompt) {
-        ctx.globalAlpha = 0.34 * fade; ctx.fillStyle = g;
-        ctx.fillText('$', x, y);
-        ctx.globalAlpha = 0.28 * fade; ctx.fillStyle = d;
-        ctx.fillText(ln.text, x + 18, y);
-        if (ln.typing && Math.floor(now / 500) % 2 === 0) {
-          ctx.globalAlpha = 0.34 * fade; ctx.fillStyle = g;
-          ctx.fillText('▊', x + 18 + ctx.measureText(ln.text).width + 2, y);
-        }
-      } else {
-        ctx.globalAlpha = 0.24 * fade; ctx.fillStyle = d;
-        ctx.fillText(ln.text, x + 18, y);
-      }
-    });
-    ctx.globalAlpha = 1;
-    raf = requestAnimationFrame(draw);
-  }
-
-  function play() {
-    // types slowly and doesn't jump, so it runs even under reduced-motion
-    if (running || !visible || document.hidden || !cv) return;
-    running = true; last = 0; cancelAnimationFrame(raf); raf = requestAnimationFrame(draw);
-  }
-  function pause() { running = false; cancelAnimationFrame(raf); }
-
-  function start() {
-    cv = $('#particles'); // re-query every render so we never hold a detached canvas
-    if (!cv) return;
-    ctx = cv.getContext('2d');
-    reset(); resize();
-    if (!bound) {
-      addEventListener('resize', resize, { passive: true });
-      if ('IntersectionObserver' in window) {
-        new IntersectionObserver((es) => {
-          visible = es[0].isIntersecting;
-          if (visible) play(); else pause();
-        }, { threshold: 0 }).observe($('#home'));
-      }
-      addEventListener('visibilitychange', () => { if (document.hidden) pause(); else play(); });
-      bound = true;
-    }
-    play();
-  }
-  return { start };
-})();
 
 /* =====================================================================
    SPOTIFY — "now playing" as a popup (opened from nav / palette)
@@ -865,7 +724,6 @@ const intro = (() => {
     if (skip) { el.remove(); document.body.classList.remove('intro-lock'); return; }
     done = false;
     document.body.classList.add('intro-lock');
-    $('#introSkip').addEventListener('click', finish);
     addEventListener('keydown', function esc2(e) { if (e.key === 'Escape') { finish(); removeEventListener('keydown', esc2); } });
 
     const cv = $('#hud');

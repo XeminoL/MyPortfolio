@@ -101,13 +101,13 @@ export const TIMELINE = {
     { year: '2023', text: 'Started Computer Engineering at HCMUT.' },
     { year: '2024', text: 'A lot of coursework across the map: logic design, microcontrollers, an OS, networking labs.' },
     { year: '2025', text: 'Built the multi-tenant issue tracker, a smart-parking system for the SE course, and a few other course projects.' },
-    { year: '2026', text: 'Interned at TKSolution, then AWS (First Cloud Journey), where I built InsightShare.' },
+    { year: '2026', text: 'Interned at TKSolution, then AWS (First Cloud AI Journey), where I built InsightShare.' },
   ],
   vi: [
     { year: '2023', text: 'Bắt đầu Kỹ thuật Máy tính tại ĐH Bách Khoa.' },
     { year: '2024', text: 'Nhiều bài tập môn trải khắp: thiết kế luận lý, vi điều khiển, hệ điều hành, lab mạng.' },
     { year: '2025', text: 'Làm issue tracker multi-tenant, một hệ thống bãi xe thông minh cho môn CNPM, và vài đồ án môn khác.' },
-    { year: '2026', text: 'Thực tập ở TKSolution, rồi AWS (First Cloud Journey), làm InsightShare ở đó.' },
+    { year: '2026', text: 'Thực tập ở TKSolution, rồi AWS (First Cloud AI Journey), làm InsightShare ở đó.' },
   ],
 };
 
@@ -186,13 +186,13 @@ export const PROJECTS = [
     },
     detail: {
       en: [
-        { h: 'What it is', p: 'The capstone for my AWS First Cloud Journey internship. You upload an image or PDF, and it turns the file into something you can actually search and ask about.' },
+        { h: 'What it is', p: 'The capstone for my AWS First Cloud AI Journey internship. You upload an image or PDF, and it turns the file into something you can actually search and ask about.' },
         { h: 'How it flows', p: 'The frontend calls API Gateway, which routes to Python Lambdas. One Lambda runs Textract and Rekognition and writes the text and labels to DynamoDB. Another searches that stored content. Another sends your question to Bedrock (Claude) with the document text as context.' },
         { h: 'Keeping files private', p: 'The original files never get a public URL. The browser uploads and downloads through short-lived presigned S3 URLs, so the bucket stays private the whole time.' },
         { h: 'What I paid attention to', p: 'Least-privilege IAM (one role per Lambda, scoped to what it touches), CloudWatch logs across everything, and cost: it sits around a dollar a month because nothing runs when idle.' },
       ],
       vi: [
-        { h: 'Là gì', p: 'Đồ án cuối kỳ thực tập AWS First Cloud Journey của mình. Bạn tải lên một ảnh hoặc PDF, nó biến file đó thành thứ bạn thật sự tìm và hỏi được.' },
+        { h: 'Là gì', p: 'Đồ án cuối kỳ thực tập AWS First Cloud AI Journey của mình. Bạn tải lên một ảnh hoặc PDF, nó biến file đó thành thứ bạn thật sự tìm và hỏi được.' },
         { h: 'Luồng chạy', p: 'Frontend gọi API Gateway, route sang các Lambda Python. Một Lambda chạy Textract và Rekognition rồi ghi text với nhãn vào DynamoDB. Một Lambda khác tìm trong đống nội dung đó. Một Lambda nữa gửi câu hỏi của bạn sang Bedrock (Claude) kèm nội dung tài liệu làm ngữ cảnh.' },
         { h: 'Giữ file riêng tư', p: 'File gốc không bao giờ có URL công khai. Trình duyệt tải lên/xuống qua URL S3 ký tạm thời, nên bucket luôn ở chế độ riêng tư.' },
         { h: 'Chỗ mình để tâm', p: 'IAM tối thiểu quyền (mỗi Lambda một role, chỉ chạm đúng thứ nó cần), log CloudWatch khắp nơi, và chi phí: nó tốn cỡ một đô một tháng vì lúc rảnh thì không chạy gì.' },

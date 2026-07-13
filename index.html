@@ -31,23 +31,27 @@
    ===================================================================== */
 
 :root {
-  --bg: #0a0e14;
+  --bg: #080b11;
   --bg-2: #0d1320;
-  --surface: #121a2a;
+  --surface: #111827;
   --surface-2: #16203250;
-  --border: #1f2b40;
-  --border-hi: #2c3e5c;
+  --border: #1e293b;
+  --border-hi: #30415e;
   --green: #7ee787;
   --green-dim: #56d364;
   --cyan: #56d4dd;
   --blue: #79c0ff;
-  --text: #e6edf3;
-  --text-dim: #aeb9c7;
-  --text-faint: #7d8aa0;
+  --text: #eef2f7;
+  --text-dim: #a8b3c4;
+  --text-faint: #71809a;
   --glow: rgba(126, 231, 135, 0.4);
   --shadow: rgba(0, 0, 0, 0.5);
-  --maxw: 1000px;
+  --maxw: 1080px;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  /* Sans for headings + prose (this is what makes it read like a real product,
+     not a student's terminal). Mono kept for code, labels, tags, numbers. */
+  --sans: 'Inter', system-ui, -apple-system, 'Segoe UI Variable', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, 'Courier New', monospace;
 }
 
 /* Hidden "amber" easter egg: recolor the whole phosphor palette to amber CRT,
@@ -100,11 +104,15 @@ body.amber { animation: crtflicker 6s infinite; }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body {
-  font-family: 'JetBrains Mono', ui-monospace, 'Courier New', monospace;
+  font-family: var(--sans);
   background: var(--bg); color: var(--text);
-  line-height: 1.75; font-size: 16px; overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
+  line-height: 1.65; font-size: 16px; overflow-x: hidden;
+  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
 }
+/* mono only where it earns it: code, technical labels, tags, numbers, the eggs */
+.mono, code, kbd, .section-num, .tech-glyph, .tech-name, .proj-icon, .proj-year,
+.tag, .pmeta, .cc-label, .fact-key, .tl-year, .hero-kicker, .status-bar,
+.egg-name, .egg-dock-tag, .lang-pill button, .icon-btn { font-family: var(--mono); }
 body.intro-lock, body.page-open { overflow: hidden; }
 img { max-width: 100%; display: block; }
 
@@ -175,13 +183,13 @@ body.rain #rain { opacity: 0.16; }
 .nav-burger { display: none; }
 
 /* ===== layout ===== */
-.wrap { position: relative; z-index: 1; max-width: var(--maxw); margin: 0 auto; padding: 0 clamp(16px, 4vw, 32px); }
-section { padding: clamp(60px, 9vh, 110px) 0; }
-.section-head { margin-bottom: 36px; }
-.section-num { color: var(--green); font-size: 14px; }
-.section-num::before { content: '// '; }
-.section-title { font-size: clamp(26px, 5vw, 40px); font-weight: 800; letter-spacing: -0.5px; margin-top: 4px; }
-.section-lead { color: var(--text-dim); margin-top: 12px; max-width: 640px; }
+.wrap { position: relative; z-index: 1; max-width: var(--maxw); margin: 0 auto; padding: 0 clamp(18px, 4vw, 40px); }
+section { padding: clamp(72px, 11vh, 128px) 0; }
+.section-head { margin-bottom: 48px; }
+.section-num { color: var(--green); font-size: 13px; letter-spacing: 1px; }
+.section-num::before { content: '// '; opacity: 0.6; }
+.section-title { font-size: clamp(30px, 5vw, 46px); font-weight: 800; letter-spacing: -1.2px; margin-top: 10px; line-height: 1.05; }
+.section-lead { color: var(--text-dim); margin-top: 14px; max-width: 620px; font-size: clamp(15px, 1.8vw, 17px); }
 
 /* ===== reveal ===== */
 .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
@@ -189,17 +197,17 @@ section { padding: clamp(60px, 9vh, 110px) 0; }
 
 /* ===== HERO ===== */
 .hero { position: relative; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding-top: 80px; overflow: hidden; }
-#particles { position: absolute; inset: 0; z-index: 0; }
 .hero-inner { position: relative; z-index: 1; }
-.hero-kicker { color: var(--text-faint); font-size: clamp(13px, 2vw, 16px); letter-spacing: 1px; margin-bottom: 14px; }
-.hero-name { font-size: clamp(42px, 10vw, 96px); font-weight: 800; line-height: 1.03; letter-spacing: -2px; }
-.hero-name .grad { background: linear-gradient(120deg, var(--green), var(--cyan) 60%, var(--blue)); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.hero-type { font-size: clamp(18px, 3.5vw, 30px); font-weight: 700; color: var(--text); margin-top: 10px; }
+.hero-kicker { color: var(--green); font-size: clamp(12px, 2vw, 14px); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px; display: inline-flex; align-items: center; gap: 10px; }
+.hero-kicker::before { content: ''; width: 26px; height: 1px; background: var(--green); opacity: 0.7; }
+.hero-name { font-size: clamp(46px, 10vw, 104px); font-weight: 800; line-height: 1.0; letter-spacing: -3px; }
+.hero-name .grad { background: linear-gradient(120deg, var(--green), var(--cyan) 55%, var(--blue)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hero-type { font-family: var(--mono); font-size: clamp(16px, 3vw, 26px); font-weight: 500; color: var(--text); margin-top: 18px; }
 .hero-type .dim { color: var(--text-faint); font-weight: 400; }
 .hero-type #typeText { color: var(--green); }
 .type-caret { color: var(--green); animation: blink 1.1s step-end infinite; }
 @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
-.hero-tagline { color: var(--text-dim); font-size: clamp(15px, 2.4vw, 19px); max-width: 660px; margin-top: 22px; }
+.hero-tagline { color: var(--text-dim); font-size: clamp(16px, 2.4vw, 20px); max-width: 620px; margin-top: 26px; line-height: 1.6; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 38px; }
 .btn { font-family: inherit; font-size: 16px; font-weight: 600; padding: 14px 26px; border-radius: 10px; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; transition: all 0.25s var(--ease); border: 1px solid var(--green); }
 .btn-primary { background: var(--green); color: var(--bg); box-shadow: 0 6px 24px var(--glow); }
@@ -445,8 +453,6 @@ footer { text-align: center; padding: 40px 16px; border-top: 1px solid var(--bor
 .intro { position: fixed; inset: 0; z-index: 2000; background: radial-gradient(ellipse at center, #0a1018 0%, #05080d 70%, #03050a 100%); transition: opacity 0.5s var(--ease), visibility 0.5s; }
 .intro.done { opacity: 0; visibility: hidden; }
 .hud-cv { position: absolute; inset: 0; width: 100%; height: 100%; }
-.intro-skip { position: absolute; top: 22px; right: 24px; z-index: 3; background: none; border: 1px solid var(--border-hi); color: var(--text-dim); font-family: inherit; font-size: 13px; letter-spacing: 1px; padding: 8px 16px; border-radius: 8px; cursor: pointer; transition: all 0.2s; }
-.intro-skip:hover { color: var(--green); border-color: var(--green); box-shadow: 0 0 14px var(--glow); }
 .intro-log { position: absolute; left: clamp(16px, 5vw, 60px); bottom: clamp(20px, 6vh, 60px); z-index: 3; font-size: 12px; text-align: left; width: min(340px, 80vw); }
 .log-line { color: var(--text-dim); opacity: 0; transform: translateX(-8px); transition: all 0.3s var(--ease); margin: 3px 0; }
 .log-line.in { opacity: 1; transform: none; }
@@ -488,7 +494,6 @@ footer { text-align: center; padding: 40px 16px; border-top: 1px solid var(--bor
   <!-- system boot intro: HUD on canvas (runs every visit; Skip available) -->
   <div class="intro" id="intro">
     <canvas id="hud" class="hud-cv" aria-hidden="true"></canvas>
-    <button class="intro-skip" id="introSkip" aria-label="Skip intro">SKIP ▸</button>
     <div class="intro-log" id="introLog"></div>
   </div>
 
@@ -681,13 +686,13 @@ const TIMELINE = {
     { year: '2023', text: 'Started Computer Engineering at HCMUT.' },
     { year: '2024', text: 'A lot of coursework across the map: logic design, microcontrollers, an OS, networking labs.' },
     { year: '2025', text: 'Built the multi-tenant issue tracker, a smart-parking system for the SE course, and a few other course projects.' },
-    { year: '2026', text: 'Interned at TKSolution, then AWS (First Cloud Journey), where I built InsightShare.' },
+    { year: '2026', text: 'Interned at TKSolution, then AWS (First Cloud AI Journey), where I built InsightShare.' },
   ],
   vi: [
     { year: '2023', text: 'Bắt đầu Kỹ thuật Máy tính tại ĐH Bách Khoa.' },
     { year: '2024', text: 'Nhiều bài tập môn trải khắp: thiết kế luận lý, vi điều khiển, hệ điều hành, lab mạng.' },
     { year: '2025', text: 'Làm issue tracker multi-tenant, một hệ thống bãi xe thông minh cho môn CNPM, và vài đồ án môn khác.' },
-    { year: '2026', text: 'Thực tập ở TKSolution, rồi AWS (First Cloud Journey), làm InsightShare ở đó.' },
+    { year: '2026', text: 'Thực tập ở TKSolution, rồi AWS (First Cloud AI Journey), làm InsightShare ở đó.' },
   ],
 };
 
@@ -766,13 +771,13 @@ const PROJECTS = [
     },
     detail: {
       en: [
-        { h: 'What it is', p: 'The capstone for my AWS First Cloud Journey internship. You upload an image or PDF, and it turns the file into something you can actually search and ask about.' },
+        { h: 'What it is', p: 'The capstone for my AWS First Cloud AI Journey internship. You upload an image or PDF, and it turns the file into something you can actually search and ask about.' },
         { h: 'How it flows', p: 'The frontend calls API Gateway, which routes to Python Lambdas. One Lambda runs Textract and Rekognition and writes the text and labels to DynamoDB. Another searches that stored content. Another sends your question to Bedrock (Claude) with the document text as context.' },
         { h: 'Keeping files private', p: 'The original files never get a public URL. The browser uploads and downloads through short-lived presigned S3 URLs, so the bucket stays private the whole time.' },
         { h: 'What I paid attention to', p: 'Least-privilege IAM (one role per Lambda, scoped to what it touches), CloudWatch logs across everything, and cost: it sits around a dollar a month because nothing runs when idle.' },
       ],
       vi: [
-        { h: 'Là gì', p: 'Đồ án cuối kỳ thực tập AWS First Cloud Journey của mình. Bạn tải lên một ảnh hoặc PDF, nó biến file đó thành thứ bạn thật sự tìm và hỏi được.' },
+        { h: 'Là gì', p: 'Đồ án cuối kỳ thực tập AWS First Cloud AI Journey của mình. Bạn tải lên một ảnh hoặc PDF, nó biến file đó thành thứ bạn thật sự tìm và hỏi được.' },
         { h: 'Luồng chạy', p: 'Frontend gọi API Gateway, route sang các Lambda Python. Một Lambda chạy Textract và Rekognition rồi ghi text với nhãn vào DynamoDB. Một Lambda khác tìm trong đống nội dung đó. Một Lambda nữa gửi câu hỏi của bạn sang Bedrock (Claude) kèm nội dung tài liệu làm ngữ cảnh.' },
         { h: 'Giữ file riêng tư', p: 'File gốc không bao giờ có URL công khai. Trình duyệt tải lên/xuống qua URL S3 ký tạm thời, nên bucket luôn ở chế độ riêng tư.' },
         { h: 'Chỗ mình để tâm', p: 'IAM tối thiểu quyền (mỗi Lambda một role, chỉ chạm đúng thứ nó cần), log CloudWatch khắp nơi, và chi phí: nó tốn cỡ một đô một tháng vì lúc rảnh thì không chạy gì.' },
@@ -892,7 +897,7 @@ const INTRO_BOOT = {
 /* === app.js === */
 /* =====================================================================
    app.js — renders the portfolio from data.js and wires up scrolling,
-   the progress bar, hero typing + particles, a skills list, project
+   the progress bar, hero typing, a skills list, project
    detail pages (hash route), a live Spotify widget, a ⌘K palette, a
    live status strip, cursor spotlight, the system intro, and one egg.
    Mouse-driven; keyboard optional.
@@ -921,7 +926,6 @@ const pick = (o) => (o && typeof o === 'object' && state.lang in o ? o[state.lan
 function renderHero() {
   const p = PROFILE;
   $('#home').innerHTML = `
-    <canvas id="particles" aria-hidden="true"></canvas>
     <div class="wrap hero-inner">
       <p class="hero-kicker reveal">${esc(pick(p.role))}</p>
       <h1 class="hero-name reveal"><span class="grad">${esc(p.name)}</span></h1>
@@ -936,7 +940,6 @@ function renderHero() {
       <span>${t().scrollHint}</span><span class="arrow"></span>
     </a>`;
   typing.start(pick(p.roles));
-  particles.start();
 }
 
 function sectionHead(num, title, lead) {
@@ -1177,145 +1180,6 @@ const typing = (() => {
   return { start };
 })();
 
-/* =====================================================================
-   HERO BACKGROUND — a faint terminal running itself behind the hero.
-   Lines type out, print output, scroll up and fade. Ties the background to who
-   I am instead of the generic particle-network every portfolio uses. Very low
-   opacity so it never fights the hero text.
-   ===================================================================== */
-const particles = (() => {
-  let raf = null; let bound = false; let running = false; let visible = true;
-  let cv = null; let ctx = null;
-  const accent = () => getComputedStyle(document.body).getPropertyValue('--green').trim() || '#7ee787';
-  const dim = () => getComputedStyle(document.body).getPropertyValue('--text-faint').trim() || '#7d8aa0';
-
-  // a scripted session: [prompt+command, ...output lines]
-  const SCRIPT = [
-    ['whoami', 'khang'],
-    ['cat focus.txt', 'building things, learning as I go'],
-    ['ls projects/', 'issue-tracker  insightshare  smart-parking'],
-    ['git log --oneline -1', 'keep going until it works'],
-    ['uptime', 'still here, still building'],
-    ['echo $NEXT', '...'],
-  ];
-  const ROW = 26;          // px between lines
-  let lines = [];          // {text, prompt, born}
-  let ci = 0;              // current script index
-  let typed = 0;           // chars typed of current command
-  let phase = 'type';      // type | output | wait
-  let tPhase = 0;
-
-  function reset() { lines = []; ci = 0; typed = 0; phase = 'type'; tPhase = 0; }
-
-  function resize() {
-    if (!cv) return;
-    const r = cv.parentElement.getBoundingClientRect();
-    const dpr = Math.min(2, devicePixelRatio || 1);
-    cv.width = r.width * dpr; cv.height = r.height * dpr;
-    cv.style.width = `${r.width}px`; cv.style.height = `${r.height}px`;
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  }
-
-  let last = 0;
-  let lastPaint = 0;
-  function draw(now) {
-    if (!cv || !ctx) { running = false; return; }
-    // cap this background at ~30fps — the cursor only blinks twice a second, so
-    // painting text 60×/s just burns the laptop GPU and makes the page jitter
-    if (now - lastPaint < 32) { raf = requestAnimationFrame(draw); return; }
-    lastPaint = now;
-    const w = cv.clientWidth; const h = cv.clientHeight;
-    const g = accent(); const d = dim();
-    ctx.clearRect(0, 0, w, h);
-    ctx.font = '13px "JetBrains Mono", ui-monospace, monospace';
-    ctx.textBaseline = 'top';
-
-    // advance the scripted session on a slow, human cadence
-    const dt = now - (last || now); last = now;
-    tPhase += dt;
-    const cur = SCRIPT[ci % SCRIPT.length];
-    if (phase === 'type') {
-      if (tPhase > 55) { tPhase = 0; typed += 1; }
-      if (typed >= cur[0].length) { phase = 'output'; tPhase = 0; }
-    } else if (phase === 'output') {
-      if (tPhase > 260) { lines.push({ prompt: false, text: cur[1] }); phase = 'wait'; tPhase = 0; }
-    } else if (phase === 'wait') {
-      if (tPhase > 1400) {
-        ci += 1; typed = 0; phase = 'type'; tPhase = 0;
-        lines.push({ prompt: true, text: SCRIPT[ci % SCRIPT.length][0] });
-      }
-    }
-    if (lines.length === 0) lines.push({ prompt: true, text: cur[0] });
-
-    // keep only what fits, oldest scroll off the top
-    const maxRows = Math.floor(h / ROW) + 1;
-    while (lines.length > maxRows) lines.shift();
-
-    // the line currently being typed lives at the bottom
-    const rendered = lines.slice();
-    if (phase === 'type') {
-      const partial = cur[0].slice(0, typed);
-      rendered[rendered.length - 1] = { prompt: true, text: partial, typing: true };
-    }
-
-    // live in the empty bottom-right corner, well below and right of the hero
-    // text and CTAs. On narrow screens it drops to the bottom-left margin.
-    const wide = w > 900;
-    const nRows = rendered.length;
-    const blockH = nRows * ROW;
-    const x = wide ? w * 0.6 : 24;
-    // anchor to the lower area, but leave room for the "// extras" panel that
-    // sits in the bottom-right corner on wide screens
-    const yBottom = h - (wide ? 104 : 62);
-    const yTop = wide ? Math.max(h * 0.5, yBottom - blockH) : Math.max(40, yBottom - blockH);
-    rendered.forEach((ln, i) => {
-      const y = yTop + i * ROW;
-      const fade = i < 3 ? 0.4 + i * 0.2 : 1;    // top lines fade as they scroll off
-      if (ln.prompt) {
-        ctx.globalAlpha = 0.34 * fade; ctx.fillStyle = g;
-        ctx.fillText('$', x, y);
-        ctx.globalAlpha = 0.28 * fade; ctx.fillStyle = d;
-        ctx.fillText(ln.text, x + 18, y);
-        if (ln.typing && Math.floor(now / 500) % 2 === 0) {
-          ctx.globalAlpha = 0.34 * fade; ctx.fillStyle = g;
-          ctx.fillText('▊', x + 18 + ctx.measureText(ln.text).width + 2, y);
-        }
-      } else {
-        ctx.globalAlpha = 0.24 * fade; ctx.fillStyle = d;
-        ctx.fillText(ln.text, x + 18, y);
-      }
-    });
-    ctx.globalAlpha = 1;
-    raf = requestAnimationFrame(draw);
-  }
-
-  function play() {
-    // types slowly and doesn't jump, so it runs even under reduced-motion
-    if (running || !visible || document.hidden || !cv) return;
-    running = true; last = 0; cancelAnimationFrame(raf); raf = requestAnimationFrame(draw);
-  }
-  function pause() { running = false; cancelAnimationFrame(raf); }
-
-  function start() {
-    cv = $('#particles'); // re-query every render so we never hold a detached canvas
-    if (!cv) return;
-    ctx = cv.getContext('2d');
-    reset(); resize();
-    if (!bound) {
-      addEventListener('resize', resize, { passive: true });
-      if ('IntersectionObserver' in window) {
-        new IntersectionObserver((es) => {
-          visible = es[0].isIntersecting;
-          if (visible) play(); else pause();
-        }, { threshold: 0 }).observe($('#home'));
-      }
-      addEventListener('visibilitychange', () => { if (document.hidden) pause(); else play(); });
-      bound = true;
-    }
-    play();
-  }
-  return { start };
-})();
 
 /* =====================================================================
    SPOTIFY — "now playing" as a popup (opened from nav / palette)
@@ -1755,7 +1619,6 @@ const intro = (() => {
     if (skip) { el.remove(); document.body.classList.remove('intro-lock'); return; }
     done = false;
     document.body.classList.add('intro-lock');
-    $('#introSkip').addEventListener('click', finish);
     addEventListener('keydown', function esc2(e) { if (e.key === 'Escape') { finish(); removeEventListener('keydown', esc2); } });
 
     const cv = $('#hud');
