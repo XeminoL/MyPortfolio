@@ -74,10 +74,8 @@ body.amber::after {
   background: repeating-linear-gradient(rgba(255, 184, 77, 0.05) 0 1px, transparent 1px 3px);
   mix-blend-mode: overlay;
 }
-@media (prefers-reduced-motion: no-preference) {
-  body.amber { animation: crtflicker 6s infinite; }
-  @keyframes crtflicker { 0%, 96%, 100% { filter: none; } 98% { filter: brightness(1.08); } }
-}
+body.amber { animation: crtflicker 6s infinite; }
+@keyframes crtflicker { 0%, 96%, 100% { filter: none; } 98% { filter: brightness(1.08); } }
 
 /* ===== GLITCH EGG (amber CRT) — a rare horror-.exe flicker, then a faint
    sigil blinks into a corner for a few seconds; click it to flip amber CRT. ===== */
@@ -308,9 +306,7 @@ section { padding: clamp(60px, 9vh, 110px) 0; }
 .np-logo::after { height: 8px; }
 .np-logo.playing::before, .np-logo.playing::after { animation: eq 0.9s ease-in-out infinite; }
 .np-logo.playing::before { animation-delay: 0.15s; }
-@media (prefers-reduced-motion: no-preference) {
-  @keyframes eq { 0%,100%{height:5px;} 50%{height:16px;} }
-}
+@keyframes eq { 0%,100%{height:5px;} 50%{height:16px;} }
 
 /* ===== SPOTIFY popup ===== */
 .sp-popup { position: fixed; inset: 0; z-index: 1300; display: grid; place-items: start center; padding-top: 80px; background: rgba(5,8,13,0.6); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); opacity: 0; pointer-events: none; transition: opacity 0.25s var(--ease); }
@@ -380,11 +376,8 @@ section { padding: clamp(60px, 9vh, 110px) 0; }
 /* ===== footer + status ===== */
 footer { text-align: center; padding: 40px 16px; border-top: 1px solid var(--border); color: var(--text-faint); font-size: 14px; position: relative; z-index: 1; }
 .status-bar { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-faint); margin-bottom: 14px; padding: 6px 14px; border: 1px solid var(--border); border-radius: 20px; }
-.status-bar .st-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--glow); }
-@media (prefers-reduced-motion: no-preference) {
-  .status-bar .st-dot { animation: stPulse 3.5s ease-in-out infinite; }
-  @keyframes stPulse { 0%,100%{opacity:1;} 50%{opacity:0.72;} }
-}
+.status-bar .st-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--glow); animation: stPulse 3.5s ease-in-out infinite; }
+@keyframes stPulse { 0%,100%{opacity:1;} 50%{opacity:0.72;} }
 .status-bar .st-label { color: var(--green); letter-spacing: 1px; }
 .status-bar .st-sep { opacity: 0.4; }
 #stClock { color: var(--text-dim); }
@@ -1192,7 +1185,6 @@ const typing = (() => {
 const particles = (() => {
   let raf = null; let bound = false; let running = false; let visible = true;
   let cv = null; let ctx = null;
-  const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
   const accent = () => getComputedStyle(document.body).getPropertyValue('--green').trim() || '#7ee787';
   const dim = () => getComputedStyle(document.body).getPropertyValue('--text-faint').trim() || '#7d8aa0';
 
@@ -1286,19 +1278,9 @@ const particles = (() => {
   }
 
   function play() {
+    // types slowly and doesn't jump, so it runs even under reduced-motion
     if (running || !visible || document.hidden || !cv) return;
-    running = true;
-    if (reduced()) { drawStatic(); return; }   // no animation: draw one frame
-    last = 0; cancelAnimationFrame(raf); raf = requestAnimationFrame(draw);
-  }
-  function drawStatic() {
-    // reduced-motion: a couple of faint static lines, no typing loop
-    const w = cv.clientWidth; ctx.clearRect(0, 0, w, cv.clientHeight);
-    ctx.font = '13px "JetBrains Mono", ui-monospace, monospace'; ctx.textBaseline = 'top';
-    const x = w > 900 ? w * 0.56 : 28; const y = cv.clientHeight / 2 - 13;
-    ctx.globalAlpha = 0.22; ctx.fillStyle = accent();
-    ctx.fillText('$ whoami', x, y); ctx.globalAlpha = 0.16; ctx.fillStyle = dim();
-    ctx.fillText('khang', x + 18, y + 26); ctx.globalAlpha = 1;
+    running = true; last = 0; cancelAnimationFrame(raf); raf = requestAnimationFrame(draw);
   }
   function pause() { running = false; cancelAnimationFrame(raf); }
 

@@ -296,7 +296,6 @@ const typing = (() => {
 const particles = (() => {
   let raf = null; let bound = false; let running = false; let visible = true;
   let cv = null; let ctx = null;
-  const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
   const accent = () => getComputedStyle(document.body).getPropertyValue('--green').trim() || '#7ee787';
   const dim = () => getComputedStyle(document.body).getPropertyValue('--text-faint').trim() || '#7d8aa0';
 
@@ -390,19 +389,9 @@ const particles = (() => {
   }
 
   function play() {
+    // types slowly and doesn't jump, so it runs even under reduced-motion
     if (running || !visible || document.hidden || !cv) return;
-    running = true;
-    if (reduced()) { drawStatic(); return; }   // no animation: draw one frame
-    last = 0; cancelAnimationFrame(raf); raf = requestAnimationFrame(draw);
-  }
-  function drawStatic() {
-    // reduced-motion: a couple of faint static lines, no typing loop
-    const w = cv.clientWidth; ctx.clearRect(0, 0, w, cv.clientHeight);
-    ctx.font = '13px "JetBrains Mono", ui-monospace, monospace'; ctx.textBaseline = 'top';
-    const x = w > 900 ? w * 0.56 : 28; const y = cv.clientHeight / 2 - 13;
-    ctx.globalAlpha = 0.22; ctx.fillStyle = accent();
-    ctx.fillText('$ whoami', x, y); ctx.globalAlpha = 0.16; ctx.fillStyle = dim();
-    ctx.fillText('khang', x + 18, y + 26); ctx.globalAlpha = 1;
+    running = true; last = 0; cancelAnimationFrame(raf); raf = requestAnimationFrame(draw);
   }
   function pause() { running = false; cancelAnimationFrame(raf); }
 
