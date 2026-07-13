@@ -4,8 +4,6 @@ A bilingual (EN / VI) personal website. Tech / neon-dark aesthetic, built from s
 with plain HTML, CSS and JavaScript — no frameworks, no build server, no runtime
 dependencies. Every mark on the page is drawn in CSS or canvas; there are no emoji.
 
-**Live:** https://xeminol.github.io/MyPortfolio/
-
 ## Features
 
 - **System boot intro** — a hand-drawn canvas HUD (concentric rings, radial ticks,
