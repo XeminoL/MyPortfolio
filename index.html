@@ -843,7 +843,6 @@ const UI = {
     spotifyBtn: 'Now playing',
     paletteHint: 'Type to jump anywhere…',
     footer: 'Built from scratch — HTML, CSS, JS. No frameworks.',
-    footerTip: 'Tip: press Ctrl / Cmd + K',
     statusOnline: 'ONLINE',
     statusSession: 'session',
   },
@@ -877,7 +876,6 @@ const UI = {
     spotifyBtn: 'Đang nghe',
     paletteHint: 'Gõ để nhảy tới bất cứ đâu…',
     footer: 'Tự tay làm — HTML, CSS, JS. Không framework.',
-    footerTip: 'Mẹo: nhấn Ctrl / Cmd + K',
     statusOnline: 'TRỰC TUYẾN',
     statusSession: 'phiên',
   },
@@ -1032,8 +1030,7 @@ function renderContact() {
 function renderNav() {
   $('#navLinks').innerHTML = NAV.map((n) =>
     `<li><a href="#${n.id}" data-link="${n.id}">${esc(pick(n.label))}</a></li>`).join('');
-  $('#footerText').innerHTML = `© 2026 ${esc(PROFILE.name)} · ${esc(t().footer)}`
-    + ` <span class="footer-tip">· ${esc(t().footerTip)}</span>`;
+  $('#footerText').innerHTML = `© 2026 ${esc(PROFILE.name)} · ${esc(t().footer)}`;
   $('#statusBar').innerHTML =
     `<span class="st-dot"></span><span class="st-label">${esc(t().statusOnline)}</span>`
     + `<span class="st-sep">·</span><span id="stClock">--:--:--</span>`

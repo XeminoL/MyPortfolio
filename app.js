@@ -142,8 +142,7 @@ function renderContact() {
 function renderNav() {
   $('#navLinks').innerHTML = NAV.map((n) =>
     `<li><a href="#${n.id}" data-link="${n.id}">${esc(pick(n.label))}</a></li>`).join('');
-  $('#footerText').innerHTML = `© 2026 ${esc(PROFILE.name)} · ${esc(t().footer)}`
-    + ` <span class="footer-tip">· ${esc(t().footerTip)}</span>`;
+  $('#footerText').innerHTML = `© 2026 ${esc(PROFILE.name)} · ${esc(t().footer)}`;
   $('#statusBar').innerHTML =
     `<span class="st-dot"></span><span class="st-label">${esc(t().statusOnline)}</span>`
     + `<span class="st-sep">·</span><span id="stClock">--:--:--</span>`
