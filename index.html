@@ -1182,55 +1182,121 @@ const typing = (() => {
 })();
 
 /* =====================================================================
-   HERO — interactive particle network
+   HERO BACKGROUND — a faint terminal running itself behind the hero.
+   Lines type out, print output, scroll up and fade. Ties the background to who
+   I am instead of the generic particle-network every portfolio uses. Very low
+   opacity so it never fights the hero text.
    ===================================================================== */
 const particles = (() => {
   let raf = null; let bound = false; let running = false; let visible = true;
-  let pts = []; let cv = null; let ctx = null;
-  const mouse = { x: -999, y: -999 };
+  let cv = null; let ctx = null;
   const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
   const accent = () => getComputedStyle(document.body).getPropertyValue('--green').trim() || '#7ee787';
+  const dim = () => getComputedStyle(document.body).getPropertyValue('--text-faint').trim() || '#7d8aa0';
+
+  // a scripted session: [prompt+command, ...output lines]
+  const SCRIPT = [
+    ['whoami', 'khang'],
+    ['cat focus.txt', 'building things, learning as I go'],
+    ['ls projects/', 'issue-tracker  insightshare  smart-parking'],
+    ['git log --oneline -1', 'keep going until it works'],
+    ['uptime', 'still here, still building'],
+    ['echo $NEXT', '...'],
+  ];
+  const ROW = 26;          // px between lines
+  let lines = [];          // {text, prompt, born}
+  let ci = 0;              // current script index
+  let typed = 0;           // chars typed of current command
+  let phase = 'type';      // type | output | wait
+  let tPhase = 0;
+
+  function reset() { lines = []; ci = 0; typed = 0; phase = 'type'; tPhase = 0; }
 
   function resize() {
     if (!cv) return;
     const r = cv.parentElement.getBoundingClientRect();
-    cv.width = r.width; cv.height = r.height;
-    const count = Math.min(70, Math.floor(r.width / 18));
-    pts = Array.from({ length: count }, (_, i) => ({
-      x: ((i * 9301 + 49297) % 233280) / 233280 * cv.width,
-      y: ((i * 49297 + 9301) % 233280) / 233280 * cv.height,
-      vx: ((((i * 7) % 10) - 5)) / 14, vy: ((((i * 13) % 10) - 5)) / 14,
-    }));
+    const dpr = Math.min(2, devicePixelRatio || 1);
+    cv.width = r.width * dpr; cv.height = r.height * dpr;
+    cv.style.width = `${r.width}px`; cv.style.height = `${r.height}px`;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
 
-  function draw() {
+  let last = 0;
+  function draw(now) {
     if (!cv || !ctx) { running = false; return; }
-    const color = accent(); const still = reduced();
-    ctx.clearRect(0, 0, cv.width, cv.height);
-    pts.forEach((p) => {
-      if (!still) { p.x += p.vx; p.y += p.vy; }
-      if (p.x < 0 || p.x > cv.width) p.vx *= -1;
-      if (p.y < 0 || p.y > cv.height) p.vy *= -1;
-      const dm = Math.hypot(p.x - mouse.x, p.y - mouse.y);
-      if (dm < 120 && dm > 0.01) { p.x += (p.x - mouse.x) / dm * 0.8; p.y += (p.y - mouse.y) / dm * 0.8; }
-      ctx.fillStyle = color; ctx.globalAlpha = 0.7;
-      ctx.beginPath(); ctx.arc(p.x, p.y, 1.7, 0, 7); ctx.fill();
-    });
-    for (let i = 0; i < pts.length; i += 1) {
-      for (let j = i + 1; j < pts.length; j += 1) {
-        const d = Math.hypot(pts[i].x - pts[j].x, pts[i].y - pts[j].y);
-        if (d < 110) {
-          ctx.globalAlpha = (1 - d / 110) * 0.18; ctx.strokeStyle = color; ctx.lineWidth = 1;
-          ctx.beginPath(); ctx.moveTo(pts[i].x, pts[i].y); ctx.lineTo(pts[j].x, pts[j].y); ctx.stroke();
-        }
+    const w = cv.clientWidth; const h = cv.clientHeight;
+    const g = accent(); const d = dim();
+    ctx.clearRect(0, 0, w, h);
+    ctx.font = '13px "JetBrains Mono", ui-monospace, monospace';
+    ctx.textBaseline = 'top';
+
+    // advance the scripted session on a slow, human cadence
+    const dt = now - (last || now); last = now;
+    tPhase += dt;
+    const cur = SCRIPT[ci % SCRIPT.length];
+    if (phase === 'type') {
+      if (tPhase > 55) { tPhase = 0; typed += 1; }
+      if (typed >= cur[0].length) { phase = 'output'; tPhase = 0; }
+    } else if (phase === 'output') {
+      if (tPhase > 260) { lines.push({ prompt: false, text: cur[1] }); phase = 'wait'; tPhase = 0; }
+    } else if (phase === 'wait') {
+      if (tPhase > 1400) {
+        ci += 1; typed = 0; phase = 'type'; tPhase = 0;
+        lines.push({ prompt: true, text: SCRIPT[ci % SCRIPT.length][0] });
       }
     }
+    if (lines.length === 0) lines.push({ prompt: true, text: cur[0] });
+
+    // keep only what fits, oldest scroll off the top
+    const maxRows = Math.floor(h / ROW) + 1;
+    while (lines.length > maxRows) lines.shift();
+
+    // the line currently being typed lives at the bottom
+    const rendered = lines.slice();
+    if (phase === 'type') {
+      const partial = cur[0].slice(0, typed);
+      rendered[rendered.length - 1] = { prompt: true, text: partial, typing: true };
+    }
+
+    // sit in the empty right half on wide screens (clear of the hero text);
+    // fall back to the left margin on narrow screens
+    const x = w > 900 ? w * 0.56 : 28;
+    const yTop = Math.max(40, h / 2 - (rendered.length * ROW) / 2);
+    rendered.forEach((ln, i) => {
+      const y = yTop + i * ROW;
+      const fade = i < 3 ? 0.35 + i * 0.22 : 1;    // top lines fade as they scroll off
+      if (ln.prompt) {
+        ctx.globalAlpha = 0.24 * fade; ctx.fillStyle = g;
+        ctx.fillText('$', x, y);
+        ctx.globalAlpha = 0.19 * fade; ctx.fillStyle = d;
+        ctx.fillText(ln.text, x + 18, y);
+        if (ln.typing && Math.floor(now / 500) % 2 === 0) {
+          ctx.globalAlpha = 0.24 * fade; ctx.fillStyle = g;
+          ctx.fillText('▊', x + 18 + ctx.measureText(ln.text).width + 2, y);
+        }
+      } else {
+        ctx.globalAlpha = 0.16 * fade; ctx.fillStyle = d;
+        ctx.fillText(ln.text, x + 18, y);
+      }
+    });
     ctx.globalAlpha = 1;
     raf = requestAnimationFrame(draw);
   }
+
   function play() {
     if (running || !visible || document.hidden || !cv) return;
-    running = true; cancelAnimationFrame(raf); draw();
+    running = true;
+    if (reduced()) { drawStatic(); return; }   // no animation: draw one frame
+    last = 0; cancelAnimationFrame(raf); raf = requestAnimationFrame(draw);
+  }
+  function drawStatic() {
+    // reduced-motion: a couple of faint static lines, no typing loop
+    const w = cv.clientWidth; ctx.clearRect(0, 0, w, cv.clientHeight);
+    ctx.font = '13px "JetBrains Mono", ui-monospace, monospace'; ctx.textBaseline = 'top';
+    const x = w > 900 ? w * 0.56 : 28; const y = cv.clientHeight / 2 - 13;
+    ctx.globalAlpha = 0.22; ctx.fillStyle = accent();
+    ctx.fillText('$ whoami', x, y); ctx.globalAlpha = 0.16; ctx.fillStyle = dim();
+    ctx.fillText('khang', x + 18, y + 26); ctx.globalAlpha = 1;
   }
   function pause() { running = false; cancelAnimationFrame(raf); }
 
@@ -1238,20 +1304,14 @@ const particles = (() => {
     cv = $('#particles'); // re-query every render so we never hold a detached canvas
     if (!cv) return;
     ctx = cv.getContext('2d');
-    resize();
+    reset(); resize();
     if (!bound) {
-      const home = $('#home');
       addEventListener('resize', resize, { passive: true });
-      home.addEventListener('pointermove', (e) => {
-        if (!cv) return;
-        const r = cv.getBoundingClientRect(); mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top;
-      });
-      home.addEventListener('pointerleave', () => { mouse.x = -999; mouse.y = -999; });
       if ('IntersectionObserver' in window) {
         new IntersectionObserver((es) => {
           visible = es[0].isIntersecting;
           if (visible) play(); else pause();
-        }, { threshold: 0 }).observe(home);
+        }, { threshold: 0 }).observe($('#home'));
       }
       addEventListener('visibilitychange', () => { if (document.hidden) pause(); else play(); });
       bound = true;
