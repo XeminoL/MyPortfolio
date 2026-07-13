@@ -390,6 +390,8 @@ const spotify = (() => {
     const live = !!(d && d.isPlaying);
     $('#spotifyStatus').textContent = live ? t().nowPlaying : t().notPlaying;
     $('#spotifyCard').classList.toggle('live', live);
+    // equalizer bars only bounce while music is actually playing
+    document.querySelectorAll('.np-logo').forEach((el) => el.classList.toggle('playing', live));
     slot.innerHTML = body(d, live);
   }
   async function tick() {
@@ -821,11 +823,13 @@ const intro = (() => {
     const accent = () => getComputedStyle(document.body).getPropertyValue('--green').trim() || '#7ee787';
     const cyan = () => getComputedStyle(document.body).getPropertyValue('--cyan').trim() || '#56d4dd';
     const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // phones render this HUD slower, so keep the intro short there; full length on desktop
+    const isPhone = matchMedia('(pointer: coarse)').matches || innerWidth < 700;
     const R = () => Math.min(W, H) * 0.26;
     const lines = INTRO_BOOT[state.lang];
     const logEl = $('#introLog');
     let shown = 0;
-    const DUR = reduced ? 350 : 2800;
+    const DUR = reduced ? 350 : (isPhone ? 1400 : 2800);
     const start = performance.now();
 
     function ring(r, lw, col, alpha, dash) {
